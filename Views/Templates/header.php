@@ -12,9 +12,9 @@
             </a>
         </div>
         <div class="navbar-menu">
-            <div class="navbar-end is-size-7">
-                <a href="#" class="navbar-item has-text-weight-light">Inicio</a>
+            <div class="px-2 navbar-end is-size-7">
                 <a href="#" class="navbar-item has-text-weight-light">Campanhas</a>
+                <a href="#" class="navbar-item has-text-weight-light">Meu perfil</a>
             </div>
         </div>
     </nav>

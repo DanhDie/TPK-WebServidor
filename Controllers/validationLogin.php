@@ -1,6 +1,12 @@
 <?php
     $email=$senha='';
     $errors = array('email'=>'', 'senha'=>'');
+    $users=array(
+        ['email'=>'joao@gmail.com',
+        'senha'=>'senha1234'],
+        ['email'=>'maria@hotmail.com',
+        'senha'=>'mariazinha69'],
+    );
 
     if(isset($_POST["submit"])):
         if(empty($_POST['email'])):
@@ -24,10 +30,31 @@
             
         endif;
 
-        if(array_filter($errors)){
+        if(!empty($senha) && !empty($email)){
+            $usuarioEncontrado= false;
+            $senhaCorreta=false;
+            foreach($users as $user){
+                if($user['email']===$email){
+                    $usuarioEncontrado= true;
+                    if($user['senha']===$senha){
+                        $senhaCorreta=true;
+                    }
+                }
+                break;
+            }
+            if(!$usuarioEncontrado){
+                $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Usuario nao encontrado.</p>';
+            } elseif(!$senhaCorreta){
+                $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha incorreta</p>';
+                $senha='';
+            }
+        }
 
+        if(array_filter($errors)){
+            
         } else{
             header('Location: controllerTelaInicial.php');
+            exit();
         }
     endif;    
 ?>

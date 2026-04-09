@@ -1,0 +1,8 @@
+body{
+    height: 100%;
+    min-height: 100vh;   
+    background-image: linear-gradient(rgb(6, 6, 7), rgb(14, 18, 22));
+}
+main, .main-content {
+    flex: 1; /* Isso faz este elemento 'esticar' e empurrar o footer */
+}

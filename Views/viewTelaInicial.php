@@ -30,7 +30,7 @@
 
                     <div class="column is-12">
                         <div class="content has-text-centered">
-                            <a href="#" class="button">Criar campanha</a>
+                            <a href="controllerCriarCampanha.php" class="button">Criar campanha</a>
                         </div>
                     </div>
                 </div>

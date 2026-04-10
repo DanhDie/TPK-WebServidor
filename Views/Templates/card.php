@@ -17,7 +17,7 @@
 
     <div class="content">
       <p class="is-size-6 has-text-weight-light">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet animi tempora rerum nisi maxime similique neque cumque consectetur magni error!</p>
-      <a href="#" class="is-size-6">Abrir campanha</a>
+      <a href="../Controllers/controllerCampanha.php" class="is-size-6">Abrir campanha</a>
     </div>
   </div>
 </div>

@@ -93,9 +93,19 @@
                             ?>                     
                         </div>
                     </div>
+
+                    <div class="content">
+                        <label for="" class="label has-text-primary">Adicionar personagem:</label>
+                        <div class="select">
+                            <select>
+                                <option>Select dropdown</option>
+                                <option>With options</option>
+                            </select>
+                        </div>
                     <button class="button">
-                        <a class="has-text-primary" href="#">Adicionar Pesonagem</a>
+                        <a class="has-text-primary" href="#">+</a>
                     </button>
+                    </div>
                 </div>
 
             </div>

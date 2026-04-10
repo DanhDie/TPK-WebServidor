@@ -127,7 +127,7 @@
                     <p>Descricao do individuo Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus rem, mollitia sapiente fuga doloribus error repudiandae delectus magnam beatae itaque laborum laboriosam libero velit inventore eum. Animi vitae ab tempora.</p>
                  </div>
                 <button class="button">
-                    <a class="has-text-primary" href="../Controllers/controllerEditarCampanha.php">Editar Personagem</a>
+                    <a class="has-text-primary" href="../Controllers/controllerEditarPersonagem.php">Editar Personagem</a>
                 </button>
 
             </div>

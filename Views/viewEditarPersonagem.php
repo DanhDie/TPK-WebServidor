@@ -1,14 +1,15 @@
 <section class="container">
     <div class="container">
         <div class="is-primary">
-            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">CRIAR PERSONAGEM</h1>
+            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">EDITAR PERSONAGEM</h1>
         
         <div class="is-primary">
             <div class="mb-3 mx-2">
             <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
                 <li class="is-size-7"><a href="../Controllers/controllerPersonagens.php">Personagens</a></li>
-                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Criar Personagem</a></li>
+                <li class="is-size-7"><a href="../Controllers/controllerFichaPersonagem.php">#Personagem selecionado</a></li>
+                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Editar Personagem</a></li>
             </ul>
             </nav>
         </div>
@@ -152,7 +153,7 @@
                     </div>
 
                     <div class="content">
-                        <label class="label">Imagem: </label>
+                        <label class="label">Substituir imagem: </label>
                         <div class="file has-name">
                             <label class="file-label">
                                 <span class="file-cta">
@@ -169,10 +170,12 @@
                     ?> 
 
                     <div class="content">
-                        <!--Botão de Enviar-->
-                    <button >
-                        <input class="mt-1 button is-primary" name="submit" type="submit" value="Finalizar">
-                    </button>
+                        <button >
+                            <input class="mt-1 button is-primary" name="submit" type="submit" value="Atualizar">
+                        </button>
+                        <button class="ml-2" >
+                            <input class="mt-1 button is-danger" name="excluir" type="submit" value="Excluir">
+                        </button>
                 </form>
                 </div>
             </div>

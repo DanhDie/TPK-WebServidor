@@ -7,7 +7,7 @@
         </h1>
 
         <div class="mb-3 mx-2">
-            <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
                 <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Campanhas</a></li>
             </ul>

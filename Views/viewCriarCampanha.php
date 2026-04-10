@@ -7,7 +7,7 @@
             <div class="mb-3 mx-2">
             <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
-                <li class="is-size-7">Campanhas   </li>
+                <li class="is-size-7"><a href="#">Campanhas</a></li>
                 <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Criar Campanha</a></li>
             </ul>
             </nav>

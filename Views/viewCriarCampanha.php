@@ -17,37 +17,41 @@
         <div class="box">
             <div class="container">
                 <!--Informações de formulário-->
-                <form action="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <div class="content">
                         <label class="label">Nome da Campanha: </label>
-                        <input class="input is-normal" type="text"  <?php echo $campanhaNome?>> 
+                        <input class="input is-normal" type="text" name="nome" value="<?php echo $campanhaNome?>"> 
                     </div>
+                    <?php
+                    echo $errors['nome'];                
+                    ?> 
 
                     <div class="content">
                         <label class="label">Descrição: </label>
-                        <textarea class="textarea" rows="5" cols="80" id="TITLE"></textarea>
+                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="desc" value="<?php echo $campanhaDesc?>"><?php echo $campanhaDesc?></textarea>
                     </div>
 
                     <div class="content">
                         <label class="label">Imagem: </label>
                         <div class="file has-name">
                             <label class="file-label">
-                                <input class="file-input" type="file" name="arquivo" />
                                 <span class="file-cta">
                                 <span class="file-icon">
                                     <i class="fas fa-upload"></i>
                                 </span>
-                                <span class="file-label"> Insira um arquivo... </span>
+                                <input  type="file" name="arquivo" />
                                 </span>
-                                <span class="file-name"> Screen Shot 2017-07-29 at 15.54.25.png </span>
                             </label>
                         </div>
                     </div>
+                    <?php
+                    echo $errors['imagem'];                
+                    ?> 
 
                     <div class="content">
                         <label class="label">Sistema utilizado: </label>
                         <div class="control select">
-                            <select required <?php echo $campanhaSistema?>>
+                            <select name="sistema" value="<?php echo $campanhaSistema?>">
                                 <option disabled selected value> -- Selecione um Sistema -- </option>
                                 <?php 
                                     foreach($sistemas as $sistema){
@@ -57,6 +61,9 @@
                             </select>
                         </div>
                     </div>
+                    <?php
+                    echo $errors['sistema'];                
+                    ?>
                     
 
                     

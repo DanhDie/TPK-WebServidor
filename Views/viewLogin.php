@@ -39,11 +39,11 @@
                 ?>             
 
                 <button >
-                    <input class="mt-1 button is-primary" name="submit" type="submit" value="Enviar">
+                    <input class="mt-1 button is-primary" name="submit" type="submit" value="Entrar">
                 </button>
 
                 <div class="mt-2">
-                    <a href="#" class="is-size-7 has-text-primary is-underlined">Não possui conta? Crie uma já!</a>
+                    <a href="../Controllers/controllerCadastro.php" class="is-size-7 has-text-primary is-underlined">Não possui conta? Crie uma já!</a>
                 </div>
                 
             </form>

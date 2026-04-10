@@ -32,7 +32,7 @@
         ?>
 
         <label>Descrição: </label>
-        <textarea name="desc" rows="5" cols="80" <?php echo $campanhaDesc?>></textarea>
+        <textarea name="desc" rows="5" cols="80" value="<?php echo $campanhaDesc?>"></textarea>
 
         <!--Botão de Enviar-->
         <button >

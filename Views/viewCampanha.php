@@ -9,7 +9,7 @@
         <div class="mb-3 mx-2">
             <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
-                <li class="is-size-7"><a href="#">Campanhas</a></li>
+                <li class="is-size-7"><a href="../Controllers/controllerTelaInicial.php">Campanhas</a></li>
                 <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">#Campanha selecionada</a></li>
             </ul>
             </nav>
@@ -32,22 +32,9 @@
                             <h1 class="is-size-5 has-text-weight-bold">#sistema</h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus rem, mollitia sapiente fuga doloribus error repudiandae delectus magnam beatae itaque laborum laboriosam libero velit inventore eum. Animi vitae ab tempora.</p>
                             <button class="button">
-                                <a class="has-text-primary" href="#">Editar Campanha</a>
+                                <a class="has-text-primary" href="../Controllers/controllerEditarCampanha.php">Editar Campanha</a>
                             </button>
-                            <div class="mt-1 columns">
-                                <div class="column">
-                                    <label for="" class="label">Players</label>
-                                    <button class="button">
-                                        <a class="has-text-primary" href="#">Editar Players</a>
-                                    </button>
-                                </div>
-                                <div class="column">
-                                    <label for="" class="label">Personagens</label>
-                                    <button class="button">
-                                        <a class="has-text-primary" href="#">Editar Personagens</a>
-                                    </button>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                  </div>
@@ -83,10 +70,31 @@
                 </div>
                 <div class="content">
                     <button class="button">
-                        <a class="has-text-primary" href="#">Criar Sessão</a>
+                        <a class="has-text-primary" href="../Controllers/controllerCriarSessao.php">Criar Sessão</a>
                     </button>
+                </div>
+                <label for="" class="is-size-4 label has-text-primary">Pesonagens</label>
+                <hr>
+                <div class=" content">
+                    <div class="mt-1 columns is-multiline">
+                        <div class="column is-3">
+                            <?php
+                            include("../Views/Templates/cardPersonagem.php");
+                            ?>                     
+                        </div>
+                        <div class="column is-3">
+                            <?php
+                            include("../Views/Templates/cardPersonagem.php");
+                            ?>                     
+                        </div>
+                        <div class="column is-3">
+                            <?php
+                            include("../Views/Templates/cardPersonagem.php");
+                            ?>                     
+                        </div>
+                    </div>
                     <button class="button">
-                        <a class="has-text-primary" href="#">Editar Sessões</a>
+                        <a class="has-text-primary" href="#">Adicionar Pesonagem</a>
                     </button>
                 </div>
 

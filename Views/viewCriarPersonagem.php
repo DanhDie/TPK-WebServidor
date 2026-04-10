@@ -1,14 +1,14 @@
 <section class="container">
     <div class="container">
         <div class="is-primary">
-            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">CRIAR CAMPANHA</h1>
+            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">CRIAR PERSONAGEM</h1>
         
         <div class="is-primary">
             <div class="mb-3 mx-2">
             <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
-                <li class="is-size-7"><a href="../Controllers/controllerTelaInicial.php">Campanhas</a></li>
-                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Criar Campanha</a></li>
+                <li class="is-size-7"><a href="../Controllers/controllerPersonagens.php">Personagens</a></li>
+                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Criar Personagem</a></li>
             </ul>
             </nav>
         </div>

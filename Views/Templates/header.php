@@ -16,6 +16,7 @@
         <div class="navbar-menu">
             <div class="px-2 navbar-end is-size-7">
                 <a href="../Controllers/controllerTelaInicial.php" class="navbar-item has-text-weight-light">Campanhas</a>
+                <a href="../Controllers/controllerPersonagens.php" class="navbar-item has-text-weight-light">Personagens</a>
                 <a href="../Controllers/controllerPerfil.php" class="navbar-item has-text-weight-light">Meu perfil</a>
             </div>
         </div>

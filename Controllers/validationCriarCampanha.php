@@ -1,16 +1,47 @@
 <?php
-$campanhaNome=$campanhaSistema=$campanhaPlayers=$campanhaPersonagem='';
-$sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
-$mestre="#User";
-# Pensando num sistema como o Foundry (fechado) todos os players poderiam ser mestres, e todos poderiam se cadastrar no NOSSO sistema de múltiplas mesas
-# Assim, todos os players podem ser colocados em display para serem adicionados, e, futuramente quando for possível, há uma verificação para o Mestre não poder se adicionar
-# com player 
-$players=["Gab","Danh","Du","Wawa","Leo"];
+    $campanhaNome=$campanhaSistema=$campanhaDesc='';
+    $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
+    $mestre="#User";
 
-# erro
+    # erro
+    $errors=array('nome'=>'',
+            'sistema'=>'');
 
-# Lógica de validação dos campos
+    # Lógica de validação dos campos
+    # Formulário enviado
+    if(isset($_POST["submit"])):
 
-# Atribuir tudo isso a um array associativo (enquanto não há DB)
+        # Nome tem que ser escrito
+        if(empty($_POST['nome'])):
+            $errors['nome']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum nome inserido</p>';
+        else:
+            $campanhaNome=$_POST['nome'];
+        endif;
 
-# De alguma forma compartilhar com o controllerCampanha
+        # Sistema deve ser escolhido
+        if(empty($_POST['sistema'])):
+            $errors['sistema']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum sistema escolhido</p>';
+            else:
+                $campanhaSistema=$_POST['sistema'];
+        endif;
+        
+        # A descrição é opcional
+                
+        if(array_filter($errors)){ # Procura por erros (lugares em branco)
+                    
+                } else{
+                    # Se tudo foi preenchido,
+                    # Atribuir tudo isso a um array associativo (enquanto não há DB)
+                    $campanha=['nome'=>$campanhaNome,
+                                'sistema'=>$campanhaSistema,
+                                'desc'=>$campanhaDesc];
+                    
+                    # De alguma forma compartilhar com o controllerCampanha, talvez algo como
+                    # $campanhas.append($campanha);
+
+                    # Retornar para a tela inciai
+                    header('Location: controllerTelaInicial.php');
+                    exit();
+                }
+    endif;
+?>

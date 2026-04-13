@@ -22,11 +22,11 @@
                 <div class="field">
                     <label class="label">Nome:</label>
                     <div class="control">
-                    <input class="input" type="text" name="nome" placeholder="insira aqui seu nome" value="<?php echo $email ?>" />
+                    <input class="input" type="text" name="nome" placeholder="insira aqui seu nome" value="<?php echo $nome ?>" />
                     </div>
                 </div>
                 <?php
-                echo $errors['email'];                
+                echo $errors['nome'];                
                 ?>
                 <div class="field">
                     <label class="label">Email:</label>
@@ -54,11 +54,11 @@
                         <div class="field">
                             <label class="label">Confirmar senha:</label>
                             <div class="control">
-                            <input value="<?php echo $senha ?>" class="input" type="text" name="senhaConfirma" placeholder="********" />
+                            <input value="<?php echo $senhaConfirm ?>" class="input" type="text" name="senhaConfirma" placeholder="********" />
                             </div>
                         </div>
                         <?php
-                        echo $errors['senha'];                
+                        echo $errors['senhaConfirm'];                
                         ?>   
                     </div>
                 </div>          

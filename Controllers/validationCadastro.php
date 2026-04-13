@@ -1,6 +1,6 @@
 <?php
-    $email=$senha='';
-    $errors = array('email'=>'', 'senha'=>'');
+    $email=$senha=$nome=$senhaConfirm='';
+    $errors = array('email'=>'', 'senha'=>'', 'nome'=>'', 'senhaConfirm'=>'');
     $users=array(
         ['email'=>'joao@gmail.com',
         'senha'=>'senha1234'],
@@ -16,6 +16,12 @@
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)):
                 $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Email invalido.</p>';
             endif;
+            foreach($users as $user){
+                if($user['email']=== $email){
+                    $errors['email']= '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Email em uso.</p>';
+                    break;
+                }
+            }
         endif;
         if(empty($_POST['senha'])):
                 $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha nao preenchida.</p>';
@@ -27,32 +33,25 @@
             if(!preg_match('/^.{8,}$/', $senha)):
                 $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha deve ser conter mais que 8 caracteres</p>';
             endif;
-            
         endif;
-
-        if(!empty($senha) && !empty($email)){
-            $usuarioEncontrado= false;
-            $senhaCorreta=false;
-            foreach($users as $user){
-                if($user['email']===$email){
-                    $usuarioEncontrado= true;
-                    if($user['senha']===$senha){
-                        $senhaCorreta=true;
-                    }
-                }
-                break;
-            }
-            if(!$usuarioEncontrado){
-                $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Usuario nao encontrado.</p>';
-            } elseif(!$senhaCorreta){
-                $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha incorreta</p>';
-                $senha='';
-            }
+        if(empty($_POST['nome'])){
+            $errors['nome']= '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nome nao preenchido.</p>';
+        } else{
+            $nome=$_POST['nome'];
         }
+        if(empty($_POST['senhaConfirma'])):
+            $errors['senhaConfirm']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Confirmação de senha nao preenchida.</p>';
+        else:
+            $senhaConfirm=$_POST['senhaConfirma'];
+            if(strcmp($senhaConfirm, $senha)){
+                $errors['senhaConfirm']= '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senhas diferentes.</p>';
+            }
+        endif;
 
         if(array_filter($errors)){
             
         } else{
+            $email=$senha=$nome=$senhaConfirm='';
             header('Location: controllerTelaInicial.php');
             exit();
         }

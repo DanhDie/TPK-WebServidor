@@ -3,7 +3,7 @@
         
         <div class="is-primary">
             <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">
-            Bem-vindo #User
+            Bem-vindo <?= $_SESSION['infoUser']['nome'] ?>
         </h1>
 
         <div class="mb-3 mx-2">

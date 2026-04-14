@@ -6,3 +6,15 @@ body{
 main, .main-content {
     flex: 1; /* Isso faz este elemento 'esticar' e empurrar o footer */
 }
+:root {
+  --bulma-primary-h: 258deg;
+  --bulma-primary-s: 69%;
+  --bulma-primary-l: 50%;
+  --bulma-link-h: 216deg;
+  --bulma-link-s: 82%;
+  --bulma-link-l: 54%;
+  --bulma-danger-h: 334deg;
+  --bulma-danger-l: 57%;
+  --bulma-scheme-h: 248;
+}
+

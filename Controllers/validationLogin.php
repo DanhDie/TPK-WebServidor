@@ -1,12 +1,7 @@
 <?php
     $email=$senha='';
     $errors = array('email'=>'', 'senha'=>'');
-    $users=array(
-        ['email'=>'joao@gmail.com',
-        'senha'=>'senha1234'],
-        ['email'=>'maria@hotmail.com',
-        'senha'=>'mariazinha69'],
-    );
+   
 
     if(isset($_POST["submit"])):
         if(empty($_POST['email'])):
@@ -30,6 +25,13 @@
             
         endif;
 
+        session_start();
+        
+        if(!empty($_SESSION['logado']) && $_SESSION['logado']){
+            header('Location: controllerTelaInicial.php');
+            exit();
+        }
+
         if(!empty($senha) && !empty($email)){
             $usuarioEncontrado= false;
             $senhaCorreta=false;
@@ -38,6 +40,8 @@
                     $usuarioEncontrado= true;
                     if($user['senha']===$senha){
                         $senhaCorreta=true;
+                        $_SESSION['logado']=true;
+                        $_SESSION['infoUser']=$user;
                     }
                 }
                 break;
@@ -49,6 +53,7 @@
                 $senha='';
             }
         }
+        
 
         if(array_filter($errors)){
             

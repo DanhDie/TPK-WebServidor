@@ -20,18 +20,18 @@
                 <div class="columns">
                     <div class="content column is-4">
                         <label for="" class="label">Nome:</label>
-                        <p>#nome</p>
+                        <p><?= $_SESSION['infoUser']['nome'] ?></p>
                     </div>
                     <div class="content column is-8">
                         <label for="" class="label">Email:</label>
-                        <p>#E-mail</p>
+                        <p><?= $_SESSION['infoUser']['email'] ?></p>
                     </div>
                 </div>
                 
                 <div class="columns is-multiline">
                     <div class="content column">
                         <button class="button is-danger">
-                            <a  class="has-text-dark" href="../Controllers/controllerLogin.php">SAIR</a>
+                            <a  class="has-text-dark" href="../Controllers/logout.php">SAIR</a>
                         </button>
                     </div>
                 </div>

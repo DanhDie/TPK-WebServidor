@@ -1,12 +1,6 @@
 <?php
     $email=$senha=$nome=$senhaConfirm='';
     $errors = array('email'=>'', 'senha'=>'', 'nome'=>'', 'senhaConfirm'=>'');
-    $users=array(
-        ['email'=>'joao@gmail.com',
-        'senha'=>'senha1234'],
-        ['email'=>'maria@hotmail.com',
-        'senha'=>'mariazinha69'],
-    );
 
     if(isset($_POST["submit"])):
         if(empty($_POST['email'])):
@@ -51,7 +45,13 @@
         if(array_filter($errors)){
             
         } else{
+            session_start();
+            $user=['email'=>$email,
+                'senha'=>$senha,
+                'nome'=>$nome];
             $email=$senha=$nome=$senhaConfirm='';
+            $_SESSION['logado']=true;
+            $_SESSION['infoUser']=$user;
             header('Location: controllerTelaInicial.php');
             exit();
         }

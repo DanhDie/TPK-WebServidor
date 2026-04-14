@@ -1,4 +1,7 @@
-<head>
+<?php
+    session_start();
+?>
+<head >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
@@ -6,7 +9,7 @@
     <script src="https://kit.fontawesome.com/d47d9eff15.js" crossorigin="anonymous"></script>
     <title>TPK - RPG manager</title>
 </head>
-<body>
+<body   >
     <nav class="navbar is-primary">
         <div class="navbar-brand">
             <a href="#" class="navbar-item">

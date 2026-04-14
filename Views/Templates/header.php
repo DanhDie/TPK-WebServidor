@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $usuario=$_SESSION['infoUser'];
 ?>
 <head >
     <meta charset="UTF-8">

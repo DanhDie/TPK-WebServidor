@@ -1,26 +1,51 @@
 <?php
-    $campanhaNome=$campanhaSistema=$campanhaDesc='';
-    $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
-    $mestre="#User";
-
+    $personagem=array('nome'=>'',
+            'level'=>'',
+            'classe'=>'',
+            'subclasse'=>'',
+            'forca'=>'',
+            'destreza'=>'',
+            'constituicao'=>'',
+            'inteligencia'=>'',
+            'sabedoria'=>'',
+            'carisma'=>'',
+            'vida'=>'',
+            'armadura'=>'',
+            'velocidade'=>'',
+            'historia'=>'');
     # erros
     $uploadOk = 1;
     $errors=array('nome'=>'',
-            'sistema'=>'',
-            'imagem'=>'');
+            'level'=>'',
+            'classe'=>'',
+            'forca'=>'',
+            'destreza'=>'',
+            'constituicao'=>'',
+            'inteligencia'=>'',
+            'sabedoria'=>'',
+            'carisma'=>'',
+            'vida'=>'',
+            'armadura'=>'',
+            'velocidade'=>'');
 
     # Lógica de validação dos campos
     # Formulário enviado
     if(isset($_POST["submit"])):
-        # Nome tem que ser escrito
-        if(empty($_POST['nome'])):
-            $errors['nome']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum nome inserido</p>';
-        else:
-            $campanhaNome=$_POST['nome'];
-        endif;
+        # Passa por todos os campos para verificar
+        foreach($personagem as $key => $value) {
+            if(empty($_POST[$key])): # Verifica se tá vazio
 
-        # A descrição é opcional
-        $campanhaDesc=$_POST['desc'];
+                if(array_key_exists($key,$errors)): # Vazio e obrigatório
+                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
+
+                else: # Vazio e não obrigatório
+                    $personagem[$key]='N/A';
+                endif;
+
+            else: # Não vazio
+                $personagem[$key]=$_POST[$key];
+            endif; 
+        }
 
         # Imagens https://www.w3schools.com/php/php_file_upload.asp, não está em inglês por causa de IA
         if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -41,13 +66,6 @@
                 $uploadOk = 0;
             }
         }
-
-        # Sistema deve ser escolhido
-        if(empty($_POST['sistema'])):
-            $errors['sistema']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum sistema escolhido</p>';
-            else:
-                $campanhaSistema=$_POST['sistema'];
-        endif;
                 
         if(array_filter($errors)){ # Procura por erros (lugares em branco)
                     
@@ -67,16 +85,13 @@
                             }
                         }
 
-                    # Atribuir informações a um array associativo (enquanto não há DB)
-                    $campanha=['nome'=>$campanhaNome,
-                                'sistema'=>$campanhaSistema,
-                                'desc'=>$campanhaDesc];
+                    # Tecnicamente $personagem já é o array associativo final aqui
                     
                     # De alguma forma compartilhar com o controllerCampanha, talvez algo como
                     # $campanhas.append($campanha);
 
-                    # Retornar para a tela inciai
-                    header('Location: controllerTelaInicial.php');
+                    # Retornar para a tela de personagens
+                    header('Location: controllerPersonagens.php');
                     exit();
                 }
     endif;

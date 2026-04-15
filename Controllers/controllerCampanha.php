@@ -1,18 +1,29 @@
 <?php
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    
+
+// Receber via GET
+$idC = isset($_GET['idC']) ? $_GET['idC'] : null;
+
+if (!$idC) {
+    echo "Erro: campanha não informada.";
+    exit;
 }
 
 include("../Views/Templates/header.php");
 
-foreach($usuario['campanhas'] as $camp){
-    if($camp['idCampanha']==$id){
-        $campanhaSelecionada=$camp;
+$campanhaSelecionada = null;
+
+foreach ($usuario['campanhas'] as $camp) {
+    if ($camp['idCampanha'] == $idC) {
+        $campanhaSelecionada = $camp;
         break;
     }
 }
 
+//Pra hora de ver uns bug
+if (!$campanhaSelecionada) {
+    echo "Campanha não encontrada.";
+    exit;
+}
 
 include("../Views/viewCampanha.php");
 

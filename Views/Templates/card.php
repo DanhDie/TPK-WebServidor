@@ -1,12 +1,10 @@
 <?php
-  $cardData=array(
+  $cardData = array(
     'titulo'=> $campanha['nomeCampanha'],
     'descricao'=> $campanha['descCampanha'],
     'sistema'=> $campanha['sistemaCampanha'],
     'imagem'=> $campanha['imagemCampanha'],
-  );  
-
-  //print_r($campanha);
+  );
 ?>
 
 <div class="card py-2 px-2">
@@ -32,12 +30,10 @@
         <?= $cardData['descricao'] ?? 'Sem descrição' ?>
       </p>
 
-      <form action="../Controllers/controllerCampanha.php" method="POST">
-        <input type="hidden" name="id" value="<?= $campanha['idCampanha'] ?>">
-        <button type="submit" class="is-size-6 button is-primary">
-            Abrir campanha
-        </button>
-      </form>
+      <a href="../Controllers/controllerCampanha.php?idC=<?= $campanha['idCampanha'] ?>"
+         class="is-size-6 button is-primary">
+        Abrir campanha
+      </a>
     </div>
   </div>
 </div>

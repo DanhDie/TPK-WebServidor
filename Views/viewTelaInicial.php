@@ -27,8 +27,8 @@
                         <?php endforeach; ?>
 
                     <div class="column is-12">
-                        <div class="content has-text-centered">
-                            <a href="controllerCriarCampanha.php" class="button">Criar campanha</a>
+                        <div class="content has-text-centered has-text-primary">
+                            <a href="controllerCriarCampanha.php" class="button has-text-primary">Criar campanha</a>
                         </div>
                     </div>
                 </div>

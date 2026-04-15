@@ -13,7 +13,7 @@
         'descCampanha'=> 'Esta é uma campanha de exemplo. RPG(Role Playing Game) é um hobbie muito divertido!',
         'imagemCampanha'=> 'https://placehold.co/400x300',
         'sistemaCampanha'=> 'Ordem Paranormal',
-        'sessoesCampanha'=> [$sessao0Exemplo],
+        'sessoesCampanha'=> [$sessao0Exemplo,$sessao0Exemplo],
         'personagensCampanha'=>[],
         'idCampanha'=>'1'
     );

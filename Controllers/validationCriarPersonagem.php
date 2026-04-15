@@ -1,8 +1,12 @@
 <?php
-    $personagem=array('nome'=>'',
-            'level'=>'',
-            'classe'=>'',
-            'subclasse'=>'',
+    # Por escrito
+    $personagemDesc=array('nome'=>'',
+                          'classe'=>'',
+                          'subclasse'=>'',
+                          'historia'=>'');
+
+    # Por números
+    $personagemStats=array('level'=>'',
             'forca'=>'',
             'destreza'=>'',
             'constituicao'=>'',
@@ -11,8 +15,8 @@
             'carisma'=>'',
             'vida'=>'',
             'armadura'=>'',
-            'velocidade'=>'',
-            'historia'=>'');
+            'velocidade'=>'');
+
     # erros
     $uploadOk = 1;
     $errors=array('nome'=>'',
@@ -31,19 +35,38 @@
     # Lógica de validação dos campos
     # Formulário enviado
     if(isset($_POST["submit"])):
-        # Passa por todos os campos para verificar
-        foreach($personagem as $key => $value) {
+        # Passa por todos os campos de personagemDesc para verificar se tá preenchido
+        foreach($personagemDesc as $key => $value) {
             if(empty($_POST[$key])): # Verifica se tá vazio
 
                 if(array_key_exists($key,$errors)): # Vazio e obrigatório
                     $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
 
                 else: # Vazio e não obrigatório
-                    $personagem[$key]='N/A';
+                    $personagemDescs[$key]='N/A';
                 endif;
 
+
+            
             else: # Não vazio
-                $personagem[$key]=$_POST[$key];
+                $personagemDesc[$key]=$_POST[$key];
+            endif; 
+        }
+        
+        # Passa por todos os campos de personagemStats para verificar se tá preenchido E se se tratam de números
+        foreach($personagemStats as $key => $value) {
+            if(empty($_POST[$key])): # Verifica se tá vazio
+
+                if(array_key_exists($key,$errors)): # Vazio e obrigatório
+                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
+                endif;
+
+                if(is_numeric($_POST[$key])):
+                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">O campo deve conter um número</p>';
+                endif;
+            
+            else: # Não vazio
+                $personagemDesc[$key]=$_POST[$key];
             endif; 
         }
 
@@ -80,15 +103,18 @@
                         else {
                             if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
                                 #echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                                $imagem = array("imagem"=> $target_file);
+
                             } else {
                                 #echo "Sorry, there was an error uploading your file.";
                             }
                         }
 
                     # Tecnicamente $personagem já é o array associativo final aqui
-                    
-                    # De alguma forma compartilhar com o controllerCampanha, talvez algo como
-                    # $campanhas.append($campanha);
+                    $personagem=array_merge($imagem, $personagemDesc, $personagemStats);
+
+                    include("../Models/users.php");
+                    array_push($usuario['personagens'],$personagem);
 
                     # Retornar para a tela de personagens
                     header('Location: controllerPersonagens.php');

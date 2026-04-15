@@ -5,6 +5,7 @@
         'nomeSessao'=> 'Sessao exemplo - 0',
         'dataSessao'=> '10/10/26',
         'resumoSessao'=> 'Nesta sessao ocorreu 1 batalha emocionante.',
+        'idSessao'=>'1'
     );
 
     $campanhaExemplo=array(
@@ -13,7 +14,8 @@
         'imagemCampanha'=> 'https://placehold.co/400x300',
         'sistemaCampanha'=> 'Ordem Paranormal',
         'sessoesCampanha'=> [$sessao0Exemplo],
-        'personagensCampanha'=>[]
+        'personagensCampanha'=>[],
+        'idCampanha'=>'1'
     );
     
     $campanhaExemplo2=array(
@@ -22,7 +24,8 @@
         'imagemCampanha'=> 'https://placehold.co/400x300',
         'sistemaCampanha'=> 'Dungeons & Dragons',
         'sessoesCampanha'=> [$sessao0Exemplo],
-        'personagensCampanha'=>[]
+        'personagensCampanha'=>[],
+        'idCampanha'=>'2'
     );
 
     $users=array(

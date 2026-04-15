@@ -3,14 +3,14 @@
         
         <div class="is-primary">
             <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">
-            #campanha selecionada
+            <?= $campanhaSelecionada['nomeCampanha']?>
         </h1>
 
         <div class="mb-3 mx-2">
             <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
                 <li class="is-size-7"><a href="../Controllers/controllerTelaInicial.php">Campanhas</a></li>
-                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">#Campanha selecionada</a></li>
+                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page"><?= $campanhaSelecionada['nomeCampanha']?></a></li>
             </ul>
             </nav>
         </div>

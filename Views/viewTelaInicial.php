@@ -20,12 +20,6 @@
                 <div class="columns is-multiline">
                     <?php
                         foreach($usuario['campanhas'] as $campanha):
-                            $cardData=array(
-                                'titulo'=> $campanha['nomeCampanha'],
-                                'descricao'=> $campanha['descCampanha'],
-                                'sistema'=> $campanha['sistemaCampanha'],
-                                'imagem'=> $campanha['imagemCampanha'],
-                            );
                     ?>
                             <div class="column is-4">
                                 <?php include("../Views/Templates/card.php"); ?>

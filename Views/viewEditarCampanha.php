@@ -1,85 +1,97 @@
 <section class="container">
     <div class="container">
         <div class="is-primary">
-            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">EDITAR CAMPANHA</h1>
+            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">
+                EDITAR CAMPANHA
+            </h1>
         
-        <div class="is-primary">
             <div class="mb-3 mx-2">
-            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
-            <ul>
-                <li class="is-size-7"><a href="../Controllers/controllerTelaInicial.php">Campanhas</a></li>
-                <li class="is-size-7"><a href="../Controllers/controllerCampanha.php">#Campanha selecionada</a></li>
-                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Editar Campanha</a></li>
-            </ul>
-            </nav>
+                <nav class="breadcrumb has-bullet-separator">
+                    <ul>
+                        <li class="is-size-7">
+                            <a href="../Controllers/controllerTelaInicial.php">Campanhas</a>
+                        </li>
+
+                        <li class="is-size-7">
+                            <a href="../Controllers/controllerCampanha.php?idC=<?= $idC ?>">
+                                <?= $campanhaSelecionada['nomeCampanha'] ?>
+                            </a>
+                        </li>
+
+                        <li class="is-active is-size-7 has-text-primary">
+                            <a href="#">Editar Campanha</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
 
-        </div>
         <div class="box">
             <div class="container">
-                <!--Informações de formulário-->
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <div class="content">
-                        <label class="label">Nome da Campanha: </label>
-                        <input class="input is-normal" type="text" name="nome" value="<?php echo $campanhaNome?>"> 
-                    </div>
-                    <?php
-                    echo $errors['nome'];                
-                    ?> 
+
+                <form method="POST" enctype="multipart/form-data">
 
                     <div class="content">
-                        <label class="label">Descrição: </label>
-                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="desc" value="<?php echo $campanhaDesc?>"><?php echo $campanhaDesc?></textarea>
+                        <label class="label">Nome da Campanha:</label>
+                        <input class="input" type="text" name="nome" value="<?= $campanhaSelecionada['nomeCampanha'] ?>">
+                    </div>
+                    <?= $errors['nome'] ?>
+
+                    <div class="content">
+                        <label class="label">Descrição:</label>
+                        <textarea class="textarea" name="desc"><?= $campanhaSelecionada['descCampanha'] ?></textarea>
                     </div>
 
                     <div class="content">
-                        <label class="label">Imagem: </label>
-                        <div class="file has-name">
-                            <label class="file-label">
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    <input  type="file" name="arquivo" />
-                                </span>
-                            </label>
-                        </div>
+                        <label class="label">Imagem atual:</label>
+                        
+                        <figure class="image is-4by3" style="max-width: 300px;">
+                            <img src="<?= $campanhaSelecionada['imagemCampanha'] ?>" alt="Imagem da campanha">
+                        </figure>
                     </div>
-                    <?php
-                    echo $errors['imagem'];                
-                    ?> 
-                    
 
                     <div class="content">
-                        <label class="label">Sistema utilizado: </label>
-                        <div class="control select">
-                            <select name="sistema" value="<?php echo $campanhaSistema?>">
-                                <option disabled selected value> -- Selecione um Sistema -- </option>
-                                <?php 
-                                    foreach($sistemas as $sistema){
-                                        echo "<option>".$sistema."</option>";
-                                    }
-                                ?>
+                        <label class="label">Alterar imagem:</label>
+                        <input type="file" name="arquivo">
+                    </div>
+                    <?= $errors['imagem'] ?>
+
+                    <div class="content">
+                        <label class="label">Sistema:</label>
+                        <div class="select">
+                            <select name="sistema">
+                                <option disabled> -- Selecione um Sistema -- </option>
+
+                                <?php foreach($sistemas as $sistema): ?>
+                                    <option <?= ($sistema == $campanhaSistema) ? 'selected' : '' ?>>
+                                        <?= $sistema ?>
+                                    </option>
+                                <?php endforeach; ?>
+
                             </select>
                         </div>
                     </div>
-                    <?php
-                    echo $errors['sistema'];                
-                    ?>
-                    
+                    <?= $errors['sistema'] ?>
 
-                    
+                    <div class="buttons mt-4">
+                        <button type="submit" name="submit" value="Finalizar" class="button is-primary">
+                            Finalizar
+                        </button>
 
-                    <div class="content">
-                        <!--Botão de Enviar-->
-                    <button >
-                        <input class="mt-1 button is-primary" name="submit" type="submit" value="Finalizar">
-                    </button>
-                    <button class="mx-3">
-                        <input class="mt-1 button is-danger" name="submit" type="submit" value="Excluir">
-                    </button>
+                        <button type="submit" name="submit" value="Excluir"
+                                class="button is-danger"
+                                onclick="return confirm('Tem certeza que deseja excluir a campanha?')">
+                            Excluir
+                        </button>
+
+                        <a class="button"
+                           href="../Controllers/controllerCampanha.php?idC=<?= $idC ?>">
+                            Cancelar
+                        </a>
+                    </div>
+
                 </form>
-                </div>
+
             </div>
         </div>
     </div>

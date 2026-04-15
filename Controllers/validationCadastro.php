@@ -48,7 +48,10 @@
             session_start();
             $user=['email'=>$email,
                 'senha'=>$senha,
-                'nome'=>$nome];
+                'nome'=>$nome,
+                'campanhas'=>[],
+                'personagens'=> []
+                ];
             $email=$senha=$nome=$senhaConfirm='';
             $_SESSION['logado']=true;
             $_SESSION['infoUser']=$user;

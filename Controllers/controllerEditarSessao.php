@@ -10,7 +10,6 @@ if (!$idS || !$idC) {
 
 include("../Views/Templates/header.php");
 
-// 🔍 Buscar campanha
 $campanhaIndex = null;
 foreach ($usuario['campanhas'] as $i => $camp) {
     if ($camp['idCampanha'] == $idC) {
@@ -24,7 +23,6 @@ if ($campanhaIndex === null) {
     exit;
 }
 
-// 🔍 Buscar sessão
 $sessaoIndex = null;
 foreach ($usuario['campanhas'][$campanhaIndex]['sessoesCampanha'] as $j => $sess) {
     if ($sess['idSessao'] == $idS) {
@@ -38,15 +36,9 @@ if ($sessaoIndex === null) {
     exit;
 }
 
-//////////////////////////////////////
-// 🔥 AÇÕES
-//////////////////////////////////////
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // ✏️ ATUALIZAR
     if (isset($_POST['finalizar'])) {
-
+        //pqp, talvez com Banco fique mais bonito?
         $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['nomeSessao'] = $_POST['nomeSessao'];
         $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['dataSessao'] = $_POST['dataSessao'];
         $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['resumoSessao'] = $_POST['resumoSessao'];
@@ -56,13 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: controllerSessao.php?idC=$idC&idS=$idS");
         exit;
     }
-
-    // ❌ EXCLUIR
     if (isset($_POST['excluir'])) {
 
         unset($usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]);
-
-        // reorganiza índices
+        
         $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'] =
             array_values($usuario['campanhas'][$campanhaIndex]['sessoesCampanha']);
 

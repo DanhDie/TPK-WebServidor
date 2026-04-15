@@ -38,7 +38,7 @@
         ['email'=>'maria@hotmail.com',
         'senha'=>'mariazinha69',
         'nome'=>'Maria',
-        'campanhas'=>[],
+        'campanhas'=>[$campanhaExemplo2],
         'personagens'=> []
         ],
     );

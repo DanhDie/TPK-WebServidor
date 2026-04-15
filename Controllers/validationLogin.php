@@ -42,9 +42,10 @@
                         $senhaCorreta=true;
                         $_SESSION['logado']=true;
                         $_SESSION['infoUser']=$user;
+                        break;
                     }
                 }
-                break;
+                
             }
             if(!$usuarioEncontrado){
                 $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Usuario nao encontrado.</p>';

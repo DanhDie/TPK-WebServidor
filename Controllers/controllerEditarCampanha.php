@@ -22,6 +22,8 @@ if ($campanhaIndex === null) {
     exit;
 }
 
+$campanhaSelecionada = $usuario['campanhas'][$campanhaIndex];
+
 include("./validationEditarCampanha.php");
 include("../Views/viewEditarCampanha.php");
 include("../Views/Templates/footer.php");

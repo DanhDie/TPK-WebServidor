@@ -1,13 +1,14 @@
 <?php
 
-$campanhaSelecionada = $usuario['campanhas'][$campanhaIndex];
-
 $campanhaNome = $campanhaSelecionada['nomeCampanha'];
 $campanhaDesc = $campanhaSelecionada['descCampanha'];
 $campanhaSistema = $campanhaSelecionada['sistemaCampanha'];
 
 $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
-$errors=array('nome'=>'');
+
+$errors=array('nome'=>'',
+              'sistema'=>'',
+              'imagem'=>'');
 
 
 if (isset($_POST['submit']) && $_POST['submit'] === "Finalizar") {
@@ -37,6 +38,7 @@ if (isset($_POST['submit']) && $_POST['submit'] === "Finalizar") {
                     $errors['imagem'] = 'O arquivo não é uma imagem válida.';
                     $uploadOk = 0;
                 }
+        }
 
         if(array_filter($errors)){} # Se tem problemas, não deixa seguir em frente
         else{ # Se tá tudo certo, atribui tudo
@@ -53,26 +55,19 @@ if (isset($_POST['submit']) && $_POST['submit'] === "Finalizar") {
             $usuario['campanhas'][$campanhaIndex]['descCampanha'] = $campanhaDesc;
             $usuario['campanhas'][$campanhaIndex]['sistemaCampanha'] = $campanhaSistema;
 
-        }
-
             $_SESSION['infoUser'] = $usuario;
 
             header("Location: controllerCampanha.php?idC=$idC");
             exit;
         }
+        
+        
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if (isset($_POST['submit']) && $_POST['submit'] === "Excluir") {
-
-        unset($usuario['campanhas'][$campanhaIndex]);
-
-        $usuario['campanhas'] = array_values($usuario['campanhas']);
-
-        $_SESSION['infoUser'] = $usuario;
-
-        header("Location: controllerTelaInicial.php");
-        exit;
-    }
+if (isset($_POST['submit']) && $_POST['submit'] === "Excluir") {
+    unset($usuario['campanhas'][$campanhaIndex]);
+    $usuario['campanhas'] = array_values($usuario['campanhas']);
+    $_SESSION['infoUser'] = $usuario;
+    header("Location: controllerTelaInicial.php");
+    exit;
 }

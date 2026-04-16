@@ -60,13 +60,14 @@
                 if(array_key_exists($key,$errors)): # Vazio e obrigatório
                     $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
                 endif;
-
-                if(is_numeric($_POST[$key])):
-                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">O campo deve conter um número</p>';
-                endif;
             
             else: # Não vazio
-                $personagemDesc[$key]=$_POST[$key];
+                if(!is_numeric($_POST[$key])):
+                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">O campo deve conter um número</p>';
+                
+                else:
+                    $personagemStats[$key]=$_POST[$key];
+                endif;
             endif; 
         }
 
@@ -99,7 +100,7 @@
                         } 
                         else {
                             if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
-                                $imagem = array("imagem"=> $target_file);
+                                $imagem=array('imagem'=>$target_file);
                             }
                         }
 
@@ -110,9 +111,10 @@
 
                     # Merge de todas as informações
                     $personagem=array_merge($imagem, $personagemDesc, $personagemStats, $id);
+                    
 
                     # Atribuir $personagem aos personagens do usuário
-                    array_push($usuario['personagens'],$personagem);
+                    $usuario['personagens'][] = $personagem;
 
                     # Salvar info
                     $_SESSION['infoUser'] = $usuario;

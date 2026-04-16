@@ -2,7 +2,7 @@
     <div class="container">
         <div class="is-primary">
             <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">
-                EDITAR CAMPANHA
+                Editar Campanha
             </h1>
         
             <div class="mb-3 mx-2">

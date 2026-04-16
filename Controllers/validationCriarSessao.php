@@ -4,7 +4,6 @@
                   'resumoSessao'=>'');
 
     # erros
-    $uploadOk = 1;
     $errors=array('nomeSessao'=>'',
             'dataSessao'=>'');
 

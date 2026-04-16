@@ -1,4 +1,24 @@
 <?php
+    $personagemDesc=array('nome'=>'Personagem exemplo',
+                          'classe'=>'Barbaro',
+                          'subclasse'=>'',
+                          'historia'=>'Ele era um guereiro tiefling numa terra distante.');
+
+    # Por números
+    $personagemStats=array('level'=>'',
+            'forca'=>'',
+            'destreza'=>'',
+            'constituicao'=>'',
+            'inteligencia'=>'',
+            'sabedoria'=>'',
+            'carisma'=>'',
+            'vida'=>'',
+            'armadura'=>'',
+            'velocidade'=>'');
+    
+    $personagemExemplo=array(
+        'DadosS'=>$personagemDesc,
+        'DadosINT'=>$personagemStats);
     //Este arquivo php é temporario, ele armazena as informacoes de usuario num array. 
     //Para a parte dois do trabalho, ele será substituido pelo banco de dados
     $sessao0Exemplo=array(
@@ -33,7 +53,7 @@
         'senha'=>'senha1234',
         'nome'=>'Joao',
         'campanhas'=>[$campanhaExemplo, $campanhaExemplo2],
-        'personagens'=> []
+        'personagens'=> [$personagemExemplo]
         ],
         ['email'=>'maria@hotmail.com',
         'senha'=>'mariazinha69',

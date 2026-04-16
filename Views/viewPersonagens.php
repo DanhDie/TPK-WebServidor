@@ -18,15 +18,13 @@
         <div class="box">
             <civ class="container">
                 <div class="columns is-multiline">
-                    <div class="column is-3">
-                        <?php include("../Views/Templates/cardPersonagem.php"); ?>
-                    </div>
-                    <div class="column is-3">
-                        <?php include("../Views/Templates/cardPersonagem.php"); ?>
-                    </div>
-                    <div class="column is-3">
-                        <?php include("../Views/Templates/cardPersonagem.php"); ?>
-                    </div>
+                    <?php
+                        foreach($usuario['personagens'] as $personagem):
+                    ?>
+                            <div class="column is-3">
+                                <?php include("../Views/Templates/cardPersonagem.php"); ?>
+                            </div>
+                        <?php endforeach; ?>
 
 
                     <div class="column is-12">

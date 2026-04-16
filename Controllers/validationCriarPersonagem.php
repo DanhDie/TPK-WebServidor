@@ -104,12 +104,12 @@
                         }
 
                     # Gerar ID única da sessão
-                    #$ultimoPersonagem = end($usuario['personagens']);
+                    $ultimoPersonagem = end($usuario['personagens']);
 
-                    #$id = $ultimoPersonagem ? $ultimoPersonagem['idPersonagem']+1 : 1;
+                    $id = array('idPersonagem' => $ultimoPersonagem ? $ultimoPersonagem['idPersonagem']+1 : 1);
 
                     # Merge de todas as informações
-                    $personagem=array_merge($imagem, $personagemDesc, $personagemStats);
+                    $personagem=array_merge($imagem, $personagemDesc, $personagemStats, $id);
 
                     # Atribuir $personagem aos personagens do usuário
                     array_push($usuario['personagens'],$personagem);

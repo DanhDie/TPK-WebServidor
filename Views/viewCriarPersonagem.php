@@ -22,7 +22,7 @@
                         <div class="column is-8">
                             <div class="content">
                                 <label class="label">Nome da Personagem: </label>
-                                <input class="input is-normal" type="text" name="nome" value="<?php echo $personagem['nome']?>"> 
+                                <input class="input is-normal" type="text" name="nome" value="<?php echo $personagemDesc['nome']?>"> 
                             </div>
                             <?php
                             echo $errors['nome'];                
@@ -31,7 +31,7 @@
                         <div class="column is-4">
                             <div class="content">
                                 <label class="label">Level: </label>
-                                <input class="input is-normal" type="text" name="level" value="<?php echo $personagem['level']?>"> 
+                                <input class="input is-normal" type="text" name="level" value="<?php echo $personagemStats['level']?>"> 
                             </div>
                             <?php
                             echo $errors['level'];                
@@ -42,7 +42,7 @@
                         <div class="column is-6">
                             <div class="content">
                                 <label class="label">Classe: </label>
-                                <input class="input is-normal" type="text" name="classe" value="<?php echo $personagem['classe']?>"> 
+                                <input class="input is-normal" type="text" name="classe" value="<?php echo $personagemDesc['classe']?>"> 
                             </div>
                             <?php
                             echo $errors['classe'];                
@@ -51,7 +51,7 @@
                         <div class="column is-6">
                             <div class="content">
                                 <label class="label">Sub-classe: </label>
-                                <input class="input is-normal" type="text" name="subclasse" value="<?php echo $personagem['subclasse']?>"> 
+                                <input class="input is-normal" type="text" name="subclasse" value="<?php echo $personagemDesc['subclasse']?>"> 
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="column is-2">
                             <div class="content">
                                 <label class="label">Força: </label>
-                                <input class="input is-normal" type="text" name="forca" value="<?php echo $personagem['forca']?>"> 
+                                <input class="input is-normal" type="text" name="forca" value="<?php echo $personagemStats['forca']?>"> 
                             </div>
                             <?php
                             echo $errors['forca'];                
@@ -69,7 +69,7 @@
                         <div class="column is-2">
                             <div class="content">
                                 <label class="label">Destreza: </label>
-                                <input class="input is-normal" type="text" name="destreza" value="<?php echo $personagem['destreza']?>"> 
+                                <input class="input is-normal" type="text" name="destreza" value="<?php echo $personagemStats['destreza']?>"> 
                             </div>
                             <?php
                             echo $errors['destreza'];                
@@ -78,7 +78,7 @@
                         <div class="column is-2">
                             <div class="content">
                                 <label class="label">Constituição: </label>
-                                <input class="input is-normal" type="text" name="constituicao" value="<?php echo $personagem['constituicao']?>"> 
+                                <input class="input is-normal" type="text" name="constituicao" value="<?php echo $personagemStats['constituicao']?>"> 
                             </div>
                             <?php
                             echo $errors['constituicao'];                
@@ -87,7 +87,7 @@
                         <div class="column is-2">
                             <div class="content">
                                 <label class="label">Inteligência: </label>
-                                <input class="input is-normal" type="text" name="inteligencia" value="<?php echo $personagem['inteligencia']?>"> 
+                                <input class="input is-normal" type="text" name="inteligencia" value="<?php echo $personagemStats['inteligencia']?>"> 
                             </div>
                             <?php
                             echo $errors['inteligencia'];                
@@ -96,7 +96,7 @@
                         <div class="column is-2">
                             <div class="content">
                                 <label class="label">Sabedoria: </label>
-                                <input class="input is-normal" type="text" name="sabedoria" value="<?php echo $personagem['sabedoria']?>"> 
+                                <input class="input is-normal" type="text" name="sabedoria" value="<?php echo $personagemStats['sabedoria']?>"> 
                             </div>
                             <?php
                             echo $errors['sabedoria'];                
@@ -105,7 +105,7 @@
                         <div class="column is-2">
                             <div class="content">
                                 <label class="label">Carisma: </label>
-                                <input class="input is-normal" type="text" name="carisma" value="<?php echo $personagem['carisma']?>"> 
+                                <input class="input is-normal" type="text" name="carisma" value="<?php echo $personagemStats['carisma']?>"> 
                             </div>
                             <?php
                             echo $errors['carisma'];                
@@ -117,7 +117,7 @@
                         <div class="column is-4">
                             <div class="content">
                                 <label class="label">Vida Máxima: </label>
-                                <input class="input is-normal" type="text" name="vida" value="<?php echo $personagem['vida']?>"> 
+                                <input class="input is-normal" type="text" name="vida" value="<?php echo $personagemStats['vida']?>"> 
                             </div>
                             <?php
                             echo $errors['vida'];                
@@ -126,7 +126,7 @@
                         <div class="column is-4">
                             <div class="content">
                                 <label class="label">Armadura: </label>
-                                <input class="input is-normal" type="text" name="armadura" value="<?php echo $personagem['armadura']?>"> 
+                                <input class="input is-normal" type="text" name="armadura" value="<?php echo $personagemStats['armadura']?>"> 
                             </div>
                             <?php
                             echo $errors['armadura'];                
@@ -135,7 +135,7 @@
                         <div class="column is-4">
                             <div class="content">
                                 <label class="label">Velocidade de movimento: </label>
-                                <input class="input is-normal" type="text" name="velocidade" value="<?php echo $personagem['velocidade']?>"> 
+                                <input class="input is-normal" type="text" name="velocidade" value="<?php echo $personagemStats['velocidade']?>"> 
                             </div>
                             <?php
                             echo $errors['velocidade'];                
@@ -145,7 +145,7 @@
 
                     <div class="content">
                         <label class="label">Historia do Personagem: </label>
-                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="historia" value="<?php echo $personagem['historia']?>"></textarea>
+                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="historia" value="<?php echo $personagemDesc['historia']?>"></textarea>
                     </div>
 
                     <div class="content">
@@ -156,14 +156,11 @@
                                     <span class="file-icon">
                                         <i class="fas fa-upload"></i>
                                     </span>
-                                    <input  type="file" name="arquivo" />
+                                    <input  type="file" name="imagem" />
                                 </span>
                             </label>
                         </div>
                     </div>
-                    <?php
-                    echo $errors['imagem'];                
-                    ?> 
 
                     <div class="content">
                         <!--Botão de Enviar-->

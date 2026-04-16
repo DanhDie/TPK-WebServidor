@@ -36,35 +36,10 @@ if ($sessaoIndex === null) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['finalizar'])) {
-        //pqp, talvez com Banco fique mais bonito?
-        $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['nomeSessao'] = $_POST['nomeSessao'];
-        $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['dataSessao'] = $_POST['dataSessao'];
-        $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['resumoSessao'] = $_POST['resumoSessao'];
-
-        $_SESSION['infoUser'] = $usuario;
-
-        header("Location: controllerSessao.php?idC=$idC&idS=$idS");
-        exit;
-    }
-    if (isset($_POST['excluir'])) {
-
-        unset($usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]);
-        
-        $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'] =
-            array_values($usuario['campanhas'][$campanhaIndex]['sessoesCampanha']);
-
-        $_SESSION['infoUser'] = $usuario;
-
-        header("Location: controllerCampanha.php?idC=$idC");
-        exit;
-    }
-}
-
 // Dados pra view
 $campanhaSelecionada = $usuario['campanhas'][$campanhaIndex];
 $sessaoSelecionada = $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex];
 
+include("./validationEditarSessao.php");
 include("../Views/viewEditarSessao.php");
 include("../Views/Templates/footer.php");

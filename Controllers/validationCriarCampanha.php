@@ -1,16 +1,95 @@
 <?php
-$campanhaNome=$campanhaSistema=$campanhaPlayers=$campanhaPersonagem='';
-$sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
-$mestre="#User";
-# Pensando num sistema como o Foundry (fechado) todos os players poderiam ser mestres, e todos poderiam se cadastrar no NOSSO sistema de múltiplas mesas
-# Assim, todos os players podem ser colocados em display para serem adicionados, e, futuramente quando for possível, há uma verificação para o Mestre não poder se adicionar
-# com player 
-$players=["Gab","Danh","Du","Wawa","Leo"];
+    $campanhaNome=$campanhaSistema=$campanhaDesc='';
+    $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
 
-# erro
+    # erros
+    $uploadOk = 1;
+    $errors=array('nome'=>'',
+            'sistema'=>'',
+            'imagem'=>'');
 
-# Lógica de validação dos campos
+    # Lógica de validação dos campos
+    # Formulário enviado
+    if(isset($_POST["submit"])):
+        # Nome tem que ser escrito
+        if(empty($_POST['nome'])):
+            $errors['nome']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum nome inserido</p>';
+        else:
+            $campanhaNome=$_POST['nome'];
+        endif;
 
-# Atribuir tudo isso a um array associativo (enquanto não há DB)
+        # A descrição é opcional
+        $campanhaDesc=$_POST['desc'];
 
-# De alguma forma compartilhar com o controllerCampanha
+        # Imagens https://www.w3schools.com/php/php_file_upload.asp, não está em inglês por causa de IA
+        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE) {
+            # Image Upload via https://www.w3schools.com/php/php_file_upload.asp 
+            $target_dir = "../Views/ImageUploads/";
+            $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+
+            # Checagem de imagem ser imagem! https://www.w3schools.com/php/php_file_upload.asp
+            $check = getimagesize($_FILES["imagem"]["tmp_name"]);
+            if($check !== false) {
+                #echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                $errors['imagem'] = 'O arquivo não é uma imagem válida.';
+                $uploadOk = 0;
+            }
+        }
+
+        # Sistema deve ser escolhido
+        if(empty($_POST['sistema'])):
+            $errors['sistema']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum sistema escolhido</p>';
+            else:
+                $campanhaSistema=$_POST['sistema'];
+        endif;
+                
+        if(array_filter($errors)){ # Procura por erros (lugares em branco)
+                    
+                } else{
+                    # Se tudo foi preenchido,
+
+                    # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
+                    if ($uploadOk == 1 && isset($target_file)) {
+                        // if everything is ok, try to upload file
+                        if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
+                                #echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                        }
+                        else {
+                                #echo "Sorry, there was an error uploading your file.";
+                            }
+                        
+                        }
+                        else {
+                            #echo "Sorry, your file was not uploaded.";
+                            } 
+                        
+
+                    # Gerar ID única da sessão
+                    $ultimaCampanha = end($usuario['campanhas']);
+
+                    $id = $ultimaCampanha ? $ultimaCampanha['idCampanha']+1 : 1;
+
+                    # Atribuir informações a um array associativo (enquanto não há DB)
+                    $campanha=[ 'imagemCampanha'=>$target_file,
+                                'nomeCampanha'=>$campanhaNome,
+                                'sistemaCampanha'=>$campanhaSistema,
+                                'descCampanha'=>$campanhaDesc,
+                                'idCampanha'=>$id];
+                    
+                    # Atribuir $campanha às campanhas do usuário
+                    array_push($usuario['campanhas'],$campanha);
+
+                    # Salvar info
+                    $_SESSION['infoUser'] = $usuario;
+
+                    # Retornar para a tela inciai
+                    header('Location: controllerTelaInicial.php');
+                    exit();
+                }
+    endif;
+?>

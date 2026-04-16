@@ -1,5 +1,5 @@
 <?php
 include("../Models/users.php");
-include("./validationLogin.php");
-include("../Views/viewLogin.php");
+include("./validationCadastro.php");
+include("../Views/viewCadastro.php");
 include("../Views/Templates/footer.php");

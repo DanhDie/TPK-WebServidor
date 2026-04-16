@@ -1,52 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!--Texto-->
-    <h1>Criar campanha</h1>
-    <h2>Insira os dados requisitados abaixo:</h2>
-    
-    <!--Informações de formulário-->
-    <label>Nome da Campanha: </label>
-    <input <?php echo $campanhaNome?>> 
+<section class="container">
+    <div class="container">
+        <div class="is-primary">
+            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">CRIAR CAMPANHA</h1>
+        
+        <div class="is-primary">
+            <div class="mb-3 mx-2">
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+            <ul>
+                <li class="is-size-7"><a href="../Controllers/controllerTelaInicial.php">Campanhas</a></li>
+                <li class="is-active is-size-7 has-text-primary"><a href="#" aria-current="page">Criar Campanha</a></li>
+            </ul>
+            </nav>
+        </div>
 
-    <label>Sistema utilizado: </label>
-    <select required <?php echo $campanhaSistema?>>
-        <option disabled selected value> -- Selecione um Sistema -- </option>
-        <?php 
-            foreach($sistemas as $sistema){
-                echo "<option>".$sistema."</option>";
-            }
-        ?>
-    </select>
+        </div>
+        <div class="box">
+            <div class="container">
+                <!--Informações de formulário-->
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="content">
+                        <label class="label">Nome da Campanha: </label>
+                        <input class="input is-normal" type="text" name="nome" value="<?php echo $campanhaNome?>"> 
+                    </div>
+                    <?php
+                    echo $errors['nome'];                
+                    ?> 
 
-    <label>Players: </label>
-    <select multiple <?php echo $campanhaPlayers?>>
-        <option disabled selected value> -- Adicione players  -- </option>
-        <?php 
-            foreach($players as $player){
-                echo "<option>".$player."</option>";
-            }
-        ?>
-    </select>
+                    <div class="content">
+                        <label class="label">Descrição: </label>
+                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="desc" value="<?php echo $campanhaDesc?>"><?php echo $campanhaDesc?></textarea>
+                    </div>
 
-    <label>Personagem: </label>
-    <select required <?php echo $campanhaPersonagem?>>
-        <option disabled selected value> -- Selecione um Personagem -- </option>
-        <option>* Ainda precisa fazer a lógica de ligação de personagem ao player e permitir acesso aqui</option>
-    </select>
+                    <div class="content">
+                        <label class="label">Imagem: </label>
+                        <div class="file has-name">
+                            <label class="file-label">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <input  type="file" name="imagem" />
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <?php
+                    echo $errors['imagem'];                
+                    ?> 
+                    
 
-    <label>Descrição: </label>
-    <textarea rows="5" cols="80" id="TITLE"></textarea>
+                    <div class="content">
+                        <label class="label">Sistema utilizado: </label>
+                        <div class="control select">
+                            <select name="sistema" value="<?php echo $campanhaSistema?>">
+                                <option disabled selected value> -- Selecione um Sistema -- </option>
+                                <?php 
+                                    foreach($sistemas as $sistema){
+                                        echo "<option>".$sistema."</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <?php
+                    echo $errors['sistema'];                
+                    ?>
+                    
 
-    <!--Botão de Enviar-->
-    <button >
-        <input class="mt-1 button is-primary" name="submit" type="submit" value="Finalizar">
-    </button>
+                    
 
-</body>
-</html>
+                    <div class="content">
+                        <!--Botão de Enviar-->
+                    <button >
+                        <input class="mt-1 button is-primary" name="submit" type="submit" value="Finalizar">
+                    </button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

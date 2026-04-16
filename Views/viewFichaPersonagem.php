@@ -1,7 +1,17 @@
 <?php
     // Por agum motivo quando cria o personagem vem sem os dados que sao numeros
     //print so pra ver 
-    print_r($personagemSelecionado)
+    print_r($personagemSelecionado);
+    function calcularModificador($numero){
+        $mod=floor(($numero-10)/2);
+        if($numero>10){
+            return '+'.$mod;
+        }
+        else{
+            return $mod;
+        }
+        
+    }
 ?>
 <section class="container">
     <div class="container">
@@ -79,11 +89,15 @@
                             ];
 
                             foreach ($atributos as $sigla => $key):
+                                $mod = calcularModificador((int)$personagemSelecionado[$key]);
                             ?>
                                 <div class="column is-2">
                                     <div class="box has-text-centered py-1">
                                         <h1 class="is-size-7 has-text-weight-light"><?= $sigla ?></h1>
-                                        <h2 class="is-size-4 has-text-primary has-text-weight-bold">
+                                        <h2 class="is-size-3 has-text-primary has-text-weight-bold">
+                                            <?= $mod ?>
+                                        </h2>
+                                        <h2 class="is-size-6 has-text-weight-light">
                                             <?= $personagemSelecionado[$key] ?>
                                         </h2>
                                        <!--Aqui precisa fazer o calculo dos atributos-->
@@ -99,7 +113,7 @@
                                     <h2 class="is-size-7 has-text-weight-light"">
                                         VIDA: 
                                     </h2>
-                                    <h1 class="is-size-4 has-text-primary has-text-weight-bold"><?= $personagemSelecionado['vida'] ?>
+                                    <h1 class="is-size-3 has-text-primary has-text-weight-bold"><?= $personagemSelecionado['vida'] ?>
                                     </h1>
                                 </div>
                             </div>
@@ -109,7 +123,7 @@
                                     <h2 class="is-size-7 has-text-weight-light"">
                                         ARMADURA: 
                                     </h2>
-                                    <h1 class="is-size-4 has-text-primary has-text-weight-bold"><?= $personagemSelecionado['armadura'] ?>
+                                    <h1 class="is-size-3 has-text-primary has-text-weight-bold"><?= $personagemSelecionado['armadura'] ?>
                                     </h1>
                                 </div>
                             </div>
@@ -119,7 +133,7 @@
                                     <h2 class="is-size-7 has-text-weight-light"">
                                         VELOCIDADE: 
                                     </h2>
-                                    <h1 class="is-size-4 has-text-primary has-text-weight-bold"><?= $personagemSelecionado['velocidade'] ?>
+                                    <h1 class="is-size-3 has-text-primary has-text-weight-bold"><?= $personagemSelecionado['velocidade'] ?>
                                     </h1>
                                 </div>
                             </div>

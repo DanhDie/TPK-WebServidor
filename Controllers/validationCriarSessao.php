@@ -1,7 +1,7 @@
 <?php
     $sessaoInf=array('nomeSessao'=>'',
                   'dataSessao'=>'',
-                  'descSessao'=>'');
+                  'resumoSessao'=>'');
 
     # erros
     $uploadOk = 1;

@@ -28,8 +28,8 @@
 
 
                     <div class="column is-12">
-                        <div class="content has-text-centered">
-                            <a href="controllerCriarPersonagem.php" class="button">Criar Personagem</a>
+                        <div class="content has-text-centered ">
+                            <a href="controllerCriarPersonagem.php" class="button has-text-primary">Criar Personagem</a>
                         </div>
                     </div>
                 </div>

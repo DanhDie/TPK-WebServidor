@@ -1,7 +1,6 @@
 <?php
     $campanhaNome=$campanhaSistema=$campanhaDesc='';
     $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
-    $mestre="#User";
 
     # erros
     $uploadOk = 1;

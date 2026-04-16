@@ -43,7 +43,7 @@
                     $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
 
                 else: # Vazio e não obrigatório
-                    $personagemDescs[$key]='N/A';
+                    $personagemDesc[$key]='N/A';
                 endif;
 
 
@@ -96,7 +96,7 @@
                     # Se tudo foi preenchido,
 
                     # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
-                    if ($uploadOk == 0) {
+                    if ($uploadOk == 0 && isset($target_file)) {
                         #echo "Sorry, your file was not uploaded.";
                         // if everything is ok, try to upload file
                         } 

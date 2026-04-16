@@ -23,13 +23,13 @@
                         <div class="column is-8">
                             <div class="content">
                                 <label class="label">Nome da Sessão: </label>
-                                <input class="input is-normal" type="text" name="nome" value="<?php echo $dataSessao?>"> 
+                                <input class="input is-normal" type="text" name="nomeSessao" value="<?php echo $nomeSessao?>"> 
                             </div>
                         </div>
                         <div class="column is-4">
                             <div class="content">
                                 <label class="label">Data: </label>
-                                <input class="input is-normal" type="text" name="nome" value="<?php echo $nomeSessao?>"> 
+                                <input class="input is-normal" type="text" name="dataSessao" value="<?php echo $dataSessao?>"> 
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
 
                     <div class="content">
                         <label class="label">Resumo: </label>
-                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="desc" value="<?php echo $descSessao?>"><?php echo $descSessao?></textarea>
+                        <textarea class="textarea" rows="5" cols="80" id="TITLE" name="descSessao" value="<?php echo $descSessao?>"><?php echo $descSessao?></textarea>
                     </div>
                     
 

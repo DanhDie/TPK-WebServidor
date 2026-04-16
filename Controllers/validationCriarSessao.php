@@ -1,84 +1,72 @@
 <?php
-    $nomeSessao=$dataSessao=$descSessao='';
-    $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
-    $mestre="#User";
+    $sessaoInf=array('nomeSessao'=>'',
+                  'dataSessao'=>'',
+                  'descSessao'=>'');
 
     # erros
     $uploadOk = 1;
-    $errors=array('nome'=>'',
-            'sistema'=>'',
-            'imagem'=>'');
+    $errors=array('nomeSessao'=>'',
+            'dataSessao'=>'');
 
     # Lógica de validação dos campos
     # Formulário enviado
     if(isset($_POST["submit"])):
-        # Nome tem que ser escrito
-        if(empty($_POST['nome'])):
-            $errors['nome']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum nome inserido</p>';
-        else:
-            $campanhaNome=$_POST['nome'];
-        endif;
+        # Passa por todos os campos de sessaoInf para verificar se tá preenchido
+        foreach($sessaoInf as $key => $value) {
+            if(empty($_POST[$key])): # Verifica se tá vazio
 
-        # A descrição é opcional
-        $campanhaDesc=$_POST['desc'];
+                if(array_key_exists($key,$errors)): # Vazio e obrigatório
+                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
 
-        # Imagens https://www.w3schools.com/php/php_file_upload.asp, não está em inglês por causa de IA
-        # O CARA USANDO IA????? QUE FEIO
-        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE) {
-            # Image Upload via https://www.w3schools.com/php/php_file_upload.asp 
-            $target_dir = "../Views/ImageUploads/";
-            $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-
-            # Checagem de imagem ser imagem! https://www.w3schools.com/php/php_file_upload.asp
-            $check = getimagesize($_FILES["imagem"]["tmp_name"]);
-            if($check !== false) {
-                #echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-            } else {
-                $errors['imagem'] = 'O arquivo não é uma imagem válida.';
-                $uploadOk = 0;
-            }
+                else: # Vazio e não obrigatório
+                    $sessaoInf[$key]='N/A';
+                endif;
+            
+            else: # Não vazio
+                $sessaoInf[$key]=$_POST[$key];
+            endif; 
         }
-
-        # Sistema deve ser escolhido
-        if(empty($_POST['sistema'])):
-            $errors['sistema']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum sistema escolhido</p>';
-            else:
-                $campanhaSistema=$_POST['sistema'];
-        endif;
                 
         if(array_filter($errors)){ # Procura por erros (lugares em branco)
                     
                 } else{
                     # Se tudo foi preenchido,
 
-                    # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
-                    if ($uploadOk == 0) {
-                        #echo "Sorry, your file was not uploaded.";
-                        // if everything is ok, try to upload file
-                        } 
-                        else {
-                            if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
-                                #echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                            } else {
-                                #echo "Sorry, there was an error uploading your file.";
-                            }
+                    # Pega ID pela URL
+                    $idC = isset($_GET['idC']) ? $_GET['idC'] : null;
+
+                    # Filtra a campanha pela ID 
+                    # Se eu tivesse tempo eu usaria árvore binária de pesquisa por eficiência só pela piada
+                    $chaveCampanhaAtual = null;
+                    foreach ($usuario['campanhas'] as $key => $value) {
+                        if ($value['idCampanha'] == $idC) {
+                            $chaveCampanhaAtual = $key;
+                            break;
                         }
+                    }
 
-                    # Atribuir informações a um array associativo (enquanto não há DB)
-                    $campanha=['nome'=>$campanhaNome,
-                                'sistema'=>$campanhaSistema,
-                                'desc'=>$campanhaDesc];
-                    
-                    # De alguma forma compartilhar com o controllerCampanha, talvez algo como
-                    # $campanhas.append($campanha);
+                    # Com a campanha correta, verificação de segurança
+                    if($chaveCampanhaAtual !== null) {
+                        # Adiconar a sessoes se, existir alguma sessao no array de sessoes da campanha atual, se não array vazio
+                        $sessoes = $usuario['campanhas'][$chaveCampanhaAtual]['sessoesCampanha'] ?? [];
+                        # Pega a última sessão
+                        $ultimaSessao = end($sessoes); 
+                        # Descobre a nova ID
+                        $id = array('idSessao' => $ultimaSessao ? $ultimaSessao['idSessao'] + 1 : 1); 
 
-                    # Retornar para a tela inciai
-                    header('Location: controllerTelaInicial.php');
-                    exit();
+                        # Merge das informações para atribuir depois
+                        $sessao=array_merge($sessaoInf,$id);
+                        
+                        # Agora dá para atribuir a nova sessão para o $sessoes com essa atribuição que é pra resolver problemas magicamente
+                        $usuario['campanhas'][$chaveCampanhaAtual]['sessoesCampanha'][] = $sessao;
+                        
+                        # Salvar info
+                        $_SESSION['infoUser'] = $usuario;
+
+                        # Retornar para a tela inciai
+                        header('Location: controllerTelaInicial.php');
+                        exit();
+                    }
                 }
     endif;
 ?>

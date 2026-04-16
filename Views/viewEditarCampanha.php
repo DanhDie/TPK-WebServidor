@@ -52,7 +52,7 @@
 
                     <div class="content">
                         <label class="label">Alterar imagem:</label>
-                        <input type="file" name="arquivo">
+                        <input type="file" name="imagem">
                     </div>
                     <?= $errors['imagem'] ?>
 

@@ -55,25 +55,38 @@
                     # Se tudo foi preenchido,
 
                     # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
-                    if ($uploadOk == 0) {
-                        #echo "Sorry, your file was not uploaded.";
+                    if ($uploadOk == 1 && isset($target_file)) {
                         // if everything is ok, try to upload file
-                        } 
-                        else {
-                            if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
+                        if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
                                 #echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                            } else {
+                        }
+                        else {
                                 #echo "Sorry, there was an error uploading your file.";
                             }
+                        
                         }
+                        else {
+                            #echo "Sorry, your file was not uploaded.";
+                            } 
+                        
+
+                    # Gerar ID única da sessão
+                    $ultimaCampanha = end($usuario['campanhas']);
+
+                    $id = $ultimaCampanha ? $ultimaCampanha['idCampanha']+1 : 1;
 
                     # Atribuir informações a um array associativo (enquanto não há DB)
-                    $campanha=['nome'=>$campanhaNome,
-                                'sistema'=>$campanhaSistema,
-                                'desc'=>$campanhaDesc];
+                    $campanha=[ 'imagemCampanha'=>$target_file,
+                                'nomeCampanha'=>$campanhaNome,
+                                'sistemaCampanha'=>$campanhaSistema,
+                                'descCampanha'=>$campanhaDesc,
+                                'idCampanha'=>$id];
                     
-                    # De alguma forma compartilhar com o controllerCampanha, talvez algo como
-                    # $campanhas.append($campanha);
+                    # Atribuir $campanha às campanhas do usuário
+                    array_push($usuario['campanhas'],$campanha);
+
+                    # Salvar info
+                    $_SESSION['infoUser'] = $usuario;
 
                     # Retornar para a tela inciai
                     header('Location: controllerTelaInicial.php');

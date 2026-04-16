@@ -110,11 +110,19 @@
                             }
                         }
 
-                    # Tecnicamente $personagem já é o array associativo final aqui
+                    # Gerar ID única da sessão
+                    #$ultimoPersonagem = end($usuario['personagens']);
+
+                    #$id = $ultimoPersonagem ? $ultimoPersonagem['idPersonagem']+1 : 1;
+
+                    # Merge de todas as informações
                     $personagem=array_merge($imagem, $personagemDesc, $personagemStats);
 
-                    include("../Models/users.php");
+                    # Atribuir $personagem aos personagens do usuário
                     array_push($usuario['personagens'],$personagem);
+
+                    # Salvar info
+                    $_SESSION['infoUser'] = $usuario;
 
                     # Retornar para a tela de personagens
                     header('Location: controllerPersonagens.php');

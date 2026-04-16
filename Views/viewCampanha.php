@@ -55,11 +55,13 @@
                 <hr>
 
                 <div class="content columns is-multiline">
-                    <?php foreach ($campanhaSelecionada['sessoesCampanha'] as $sessao): ?>
-                        <div class="column is-3">
-                            <?php include("../Views/Templates/cardSession.php"); ?>
-                        </div>
-                    <?php endforeach; ?>
+                    <?php if (!empty($campanhaSelecionada['sessoesCampanha'])): 
+                            foreach ($campanhaSelecionada['sessoesCampanha'] as $sessao): ?>
+                            <div class="column is-3">
+                                <?php include("../Views/Templates/cardSession.php"); ?>
+                            </div>
+                        <?php endforeach;?>
+                    <?php endif; ?>
                 </div>
 
                 <div class="content">

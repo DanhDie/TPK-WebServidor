@@ -39,7 +39,7 @@
                                     <span class="file-icon">
                                         <i class="fas fa-upload"></i>
                                     </span>
-                                    <input  type="file" name="arquivo" />
+                                    <input  type="file" name="imagem" />
                                 </span>
                             </label>
                         </div>

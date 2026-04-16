@@ -1,4 +1,6 @@
 <?php
+    $target_file = null;
+    $imagem = array("imagem" => null);
     # Por escrito
     $personagemDesc=array('nome'=>'',
                           'classe'=>'',
@@ -46,8 +48,6 @@
                     $personagemDesc[$key]='N/A';
                 endif;
 
-
-            
             else: # Não vazio
                 $personagemDesc[$key]=$_POST[$key];
             endif; 
@@ -89,34 +89,27 @@
                 $uploadOk = 0;
             }
         }
-                
-        if(array_filter($errors)){ # Procura por erros (lugares em branco)
-                    
-                } else{
+        
+        if(array_filter($errors)){} 
+        else{
                     # Se tudo foi preenchido,
-
                     # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
                     if ($uploadOk == 0 && isset($target_file)) {
-                        #echo "Sorry, your file was not uploaded.";
                         // if everything is ok, try to upload file
                         } 
                         else {
                             if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
-                                #echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
                                 $imagem = array("imagem"=> $target_file);
-
-                            } else {
-                                #echo "Sorry, there was an error uploading your file.";
                             }
                         }
 
                     # Gerar ID única da sessão
-                    #$ultimoPersonagem = end($usuario['personagens']);
+                    $ultimoPersonagem = end($usuario['personagens']);
 
-                    #$id = $ultimoPersonagem ? $ultimoPersonagem['idPersonagem']+1 : 1;
+                    $id = array('idPersonagem' => $ultimoPersonagem ? $ultimoPersonagem['idPersonagem']+1 : 1);
 
                     # Merge de todas as informações
-                    $personagem=array_merge($imagem, $personagemDesc, $personagemStats);
+                    $personagem=array_merge($imagem, $personagemDesc, $personagemStats, $id);
 
                     # Atribuir $personagem aos personagens do usuário
                     array_push($usuario['personagens'],$personagem);

@@ -1,7 +1,7 @@
 <?php
     // Por agum motivo quando cria o personagem vem sem os dados que sao numeros
     //print so pra ver 
-    print_r($personagemSelecionado);
+    //print_r($personagemSelecionado);
     function calcularModificador($numero){
         $mod=floor(($numero-10)/2);
         if($numero>10){

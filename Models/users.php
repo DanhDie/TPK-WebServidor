@@ -1,4 +1,11 @@
 <?php
+    require('conexao.php');
+    class Usuario{
+        protected $id;
+        protected $nome;
+        protected $email;
+        protected $senha;
+    }
     $personagemExemplo=array('nome'=>'Personagem exemplo',
             'classe'=>'Barbaro',
             'subclasse'=>'',

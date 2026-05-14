@@ -1,5 +1,4 @@
 <?php
-    require('conexao.php');
     class Usuario{
         protected $id;
         protected $nome;

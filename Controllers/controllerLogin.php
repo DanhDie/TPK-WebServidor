@@ -17,6 +17,9 @@ foreach($usuarios as $u){
     }
 //
 
+// Verificar se o usuário já tem token de Login
+
+// Depois decidir se vai para login ou Tela inicial
 include("./validationLogin.php");
 include("../Views/viewLogin.php");
 include("../Views/Templates/footer.php");

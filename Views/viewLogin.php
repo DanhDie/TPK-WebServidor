@@ -31,7 +31,7 @@
                 <div class="field">
                     <label class="label">Senha:</label>
                     <div class="control">
-                    <input value="<?php echo $senha ?>" class="input" type="text" name="senha" placeholder="********" />
+                    <input class="input" type="password" name="senha" placeholder="********" />
                     </div>
                 </div>
                 <?php

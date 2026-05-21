@@ -1,6 +1,12 @@
 <?php
-    session_start();
-    $usuario=$_SESSION['infoUser'];
+
+if(empty($_SESSION['logado'])){
+
+    header('Location: ' . BASE_URL . '/login');
+    exit();
+}
+
+$usuario = $_SESSION['infoUser'];
 ?>
 <head >
     <meta charset="UTF-8">
@@ -19,9 +25,17 @@
         </div>
         <div class="navbar-menu">
             <div class="px-2 navbar-end is-size-7">
-                <a href="../Controllers/controllerTelaInicial.php" class="navbar-item has-text-weight-light">Campanhas</a>
-                <a href="../Controllers/controllerPersonagens.php" class="navbar-item has-text-weight-light">Personagens</a>
-                <a href="../Controllers/controllerPerfil.php" class="navbar-item has-text-weight-light">Meu perfil</a>
+                <a href="<?= BASE_URL ?>/telaInicial" class="navbar-item has-text-weight-light">
+                    Campanhas
+                </a>
+
+                <a href="<?= BASE_URL ?>/personagem" class="navbar-item has-text-weight-light">
+                    Personagens
+                </a>
+
+                <a href="<?= BASE_URL ?>/perfil" class="navbar-item has-text-weight-light">
+                    Meu perfil
+                </a>
             </div>
         </div>
     </nav>

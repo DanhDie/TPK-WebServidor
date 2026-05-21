@@ -1,4 +1,5 @@
 <?php
+echo $_SERVER["REQUEST_URI"];
 //Localmente pelo XAMPP: localhost/TPK-WebServidor/public/ 
 $base = "/TPK-WebServidor/public";
 
@@ -30,7 +31,7 @@ $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 # Remove o link basico do diretorio, agora o link pode ser qualquer um, e o que importa é a rota
 $url = str_replace($base, "", $url);
 
-if($url == "") {
+if($url == "" || $url == "/index.php"){
     $url = "/";
 }
 

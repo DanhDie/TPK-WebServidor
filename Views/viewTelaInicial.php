@@ -19,7 +19,7 @@
             <civ class="container">
                 <div class="columns is-multiline">
                     <?php
-                        foreach($usuario['campanhas'] as $campanha):
+                        foreach($campanhas as $campanha):
                     ?>
                             <div class="column is-4">
                                 <?php include("../Views/Templates/card.php"); ?>

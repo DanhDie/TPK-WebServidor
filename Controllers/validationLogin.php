@@ -1,66 +1,89 @@
 <?php
-    $email=$senha='';
-    $errors = array('email'=>'', 'senha'=>'');
-   
 
-    if(isset($_POST["submit"])):
-        if(empty($_POST['email'])):
-            $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Email nao preenchido.</p>';
-        else:
-            $email=$_POST['email'];
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)):
-                $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Email invalido.</p>';
-            endif;
-        endif;
-        if(empty($_POST['senha'])):
-                $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha nao preenchida.</p>';
-        else:
-            $senha=$_POST['senha'];
-            if(!preg_match('/^.*\d.*$/', $senha)):
-                $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha deve ser conter pelo menos um numero</p>';
-            endif;
-            if(!preg_match('/^.{8,}$/', $senha)):
-                $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha deve ser conter mais que 8 caracteres</p>';
-            endif;
-            
-        endif;
+$email = $senha = '';
 
-        session_start();
-        
-        if(!empty($_SESSION['logado']) && $_SESSION['logado']){
-            header('Location: controllerTelaInicial.php');
-            exit();
+$errors = array(
+    'email' => '',
+    'senha' => ''
+);
+
+if(isset($_POST['submit'])){
+
+    // EMAIL
+    if(empty($_POST['email'])){
+
+        $errors['email'] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Email nao preenchido.</p>';
+
+    } else{
+
+        $email = trim($_POST['email']);
+
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+
+            $errors['email'] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Email invalido.</p>';
         }
+    }
 
-        if(!empty($senha) && !empty($email)){
-            $usuarioEncontrado= false;
-            $senhaCorreta=false;
-            foreach($users as $user){
-                if($user['email']===$email){
-                    $usuarioEncontrado= true;
-                    if($user['senha']===$senha){
-                        $senhaCorreta=true;
-                        $_SESSION['logado']=true;
-                        $_SESSION['infoUser']=$user;
-                        break;
-                    }
+    // SENHA
+    if(empty($_POST['senha'])){
+
+        $errors['senha'] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha nao preenchida.</p>';
+
+    } else{
+
+        $senha = $_POST['senha'];
+    }
+
+    // Se não houver erros
+    if(!array_filter($errors)){
+
+        try{
+
+            $bd = Conexao::get();
+
+            $query = $bd->prepare("
+                SELECT *
+                FROM usuario
+                WHERE email = :email
+            ");
+
+            $query->bindValue(':email', $email);
+
+            $query->execute();
+
+            $usuario = $query->fetch(PDO::FETCH_ASSOC);
+
+            // Usuario encontrado
+            if($usuario){
+
+                // Verifica senha
+                if($usuario['senha'] === $senha){
+
+                    $_SESSION['logado'] = true;
+
+                    $_SESSION['infoUser'] = array(
+                        'id' => $usuario['id'],
+                        'nome' => $usuario['nome'],
+                        'email' => $usuario['email']
+                    );
+
+                    header('Location: ' . BASE_URL . '/telaInicial');
+                    exit();
+
+                } else{
+
+                    $errors['senha'] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha incorreta.</p>';
                 }
-                
-            }
-            if(!$usuarioEncontrado){
-                $errors['email']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Usuario nao encontrado.</p>';
-            } elseif(!$senhaCorreta){
-                $errors['senha']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Senha incorreta</p>';
-                $senha='';
-            }
-        }
-        
 
-        if(array_filter($errors)){
-            
-        } else{
-            header('Location: controllerTelaInicial.php');
-            exit();
+            } else{
+
+                $errors['email'] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Usuario nao encontrado.</p>';
+            }
+
+        } catch(PDOException $e){
+
+            die("Erro no banco: " . $e->getMessage());
         }
-    endif;    
+    }
+}
 ?>

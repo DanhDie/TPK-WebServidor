@@ -31,7 +31,7 @@
                 <div class="columns is-multiline">
                     <div class="content column">
                         <button class="button is-danger">
-                            <a  class="has-text-dark" href="../Controllers/logout.php">SAIR</a>
+                            <a  class="has-text-dark" href="<?= BASE_URL ?>/logout">SAIR</a>
                         </button>
                     </div>
                 </div>

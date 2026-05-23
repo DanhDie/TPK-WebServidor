@@ -30,7 +30,7 @@
         <?= $cardData['descricao'] ?? 'Sem descrição' ?>
       </p>
 
-      <a href="../Controllers/controllerCampanha.php?idC=<?= $campanha['idCampanha'] ?>"
+      <a href="<?= BASE_URL ?>/campanha?idC=<?= $campanha['idCampanha'] ?>"
          class="is-size-6 button is-primary">
         Abrir campanha
       </a>

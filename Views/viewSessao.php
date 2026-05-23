@@ -10,11 +10,11 @@
                 <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
                     <ul>
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerTelaInicial.php">Campanhas</a>
+                            <a href="<?= BASE_URL ?>/telaInicial">Campanhas</a>
                         </li>
 
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerCampanha.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
+                            <a href="<?= BASE_URL ?>/campanha?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
                                 <?= $campanhaSelecionada['nomeCampanha'] ?>
                             </a>
                         </li>
@@ -55,7 +55,7 @@
 
                 <div class="content">
                     <a class="button has-text-primary"
-                       href="../Controllers/controllerEditarSessao.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>&idS=<?= $sessaoSelecionada['idSessao'] ?>">
+                       href="<?= BASE_URL ?>/editarSessao?idC=<?= $campanhaSelecionada['idCampanha'] ?>&idS=<?= $sessaoSelecionada['idSessao'] ?>">
                         Editar Sessão
                     </a>
                 </div>

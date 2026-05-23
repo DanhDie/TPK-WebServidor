@@ -7,15 +7,15 @@
             <div class="mb-3 mx-2">
             <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
-                <li class="is-size-7"><a href="../Controllers/controllerTelaInicial.php">Campanhas</a></li>
+                <li class="is-size-7"><a href="<?= BASE_URL ?>/telaInicial">Campanhas</a></li>
                 <li class="is-size-7">
-                            <a href="../Controllers/controllerCampanha.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
+                            <a href="<?= BASE_URL ?>/campanha?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
                                 <?= $campanhaSelecionada['nomeCampanha'] ?>
                             </a>
                         </li>
 
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerSessao.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>&idS=<?= $sessao['idSessao'] ?>" class="is-size-7">
+                            <a href="<?= BASE_URL ?>/sessao?idC=<?= $campanhaSelecionada['idCampanha'] ?>&idS=<?= $sessao['idSessao'] ?>" class="is-size-7">
                                 Editar Sessão
                             </a>
                         </li>
@@ -69,7 +69,7 @@
                                 </button>
 
                                 <a class="button"
-                                href="../Controllers/controllerSessao.php?idC=<?= $idC ?>&idS=<?= $idS ?>">
+                                href="<?= BASE_URL ?>/sessao?idC=<?= $idC ?>&idS=<?= $idS ?>">
                                     Cancelar
                                 </a>
                             </div>

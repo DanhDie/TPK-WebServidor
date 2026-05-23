@@ -68,7 +68,7 @@
                 </button>
 
                 <div class="mt-2">
-                    <a href="../Controllers/controllerLogin.php" class="is-size-7 has-text-primary is-underlined">Já possui conta? Entre já!</a>
+                    <a href="<?= BASE_URL ?>/" class="is-size-7 has-text-primary is-underlined">Já possui conta? Entre já!</a>
                 </div>
                 
             </form>

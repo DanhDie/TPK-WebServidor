@@ -1,18 +1,3 @@
-<?php
-    // Por agum motivo quando cria o personagem vem sem os dados que sao numeros
-    //print so pra ver 
-    //print_r($personagemSelecionado);
-    function calcularModificador($numero){
-        $mod=floor(($numero-10)/2);
-        if($numero>10){
-            return '+'.$mod;
-        }
-        else{
-            return $mod;
-        }
-        
-    }
-?>
 <section class="container">
     <div class="container">
         
@@ -25,7 +10,7 @@
                 <nav class="breadcrumb has-bullet-separator">
                     <ul>
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerPersonagens.php">Personagens</a>
+                            <a href="<?= BASE_URL ?>/personagens">Personagens</a>
                         </li>
 
                         <li class="is-active is-size-7 has-text-primary">
@@ -89,7 +74,7 @@
                             ];
 
                             foreach ($atributos as $sigla => $key):
-                                $mod = calcularModificador((int)$personagemSelecionado[$key]);
+                                $mod = Personagem::statCalculator((int)$personagemSelecionado[$key]);
                             ?>
                                 <div class="column is-2">
                                     <div class="box has-text-centered py-1">
@@ -149,7 +134,7 @@
                 </div>
 
                 <a class="button has-text-primary"
-                   href="../Controllers/controllerEditarPersonagem.php?idP=<?= $personagemSelecionado['idPersonagem'] ?>">
+                   href="<?= BASE_URL ?>/editarPersonagem?idP=<?= $personagemSelecionado['idPersonagem'] ?>">
                     Editar Personagem
                 </a>
 

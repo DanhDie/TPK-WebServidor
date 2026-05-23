@@ -7,10 +7,10 @@
             <div class="mb-3 mx-2">
                 <nav class="breadcrumb has-bullet-separator">
                     <ul>
-                        <li class="is-size-7"><a href="../Controllers/controllerPersonagens.php">Personagens</a></li>
+                        <li class="is-size-7"><a href="<?= BASE_URL ?>/personagens">Personagens</a></li>
 
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerFichaPersonagem.php?idP=<?= $idP ?>">
+                            <a href="<?= BASE_URL ?>/ficha?idP=<?= $idP ?>">
                                 <?= $personagemSelecionado['nome'] ?>
                             </a>
                         </li>
@@ -101,7 +101,7 @@
                     </button>
 
                     <a class="button"
-                       href="../Controllers/controllerFichaPersonagem.php?idP=<?= $idP ?>">
+                       href="<?= BASE_URL ?>/ficha?idP=<?= $idP ?>">
                         Cancelar
                     </a>
                 </div>

@@ -1,0 +1,8 @@
+{
+    "name": "gabsferi/tpk-web-servidor",
+    "require": {},
+    "autoload": {
+        "classmap": ["./"],
+        "files": ["bootstrap.php"]
+    }
+}

@@ -29,7 +29,7 @@ $usuario = $_SESSION['infoUser'];
                     Campanhas
                 </a>
 
-                <a href="<?= BASE_URL ?>/personagem" class="navbar-item has-text-weight-light">
+                <a href="<?= BASE_URL ?>/personagens" class="navbar-item has-text-weight-light">
                     Personagens
                 </a>
 

@@ -10,7 +10,7 @@
                 <nav class="breadcrumb has-bullet-separator">
                     <ul>
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerTelaInicial.php">Campanhas</a>
+                            <a href="<?= BASE_URL ?>/telaInicial">Campanhas</a>
                         </li>
                         <li class="is-active is-size-7 has-text-primary">
                             <a href="#">
@@ -41,7 +41,7 @@
                             <p><?= $campanhaSelecionada['descCampanha'] ?></p>
 
                             <a class="button has-text-primary"
-                               href="../Controllers/controllerEditarCampanha.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
+                               href="<?= BASE_URL ?>/editarCampanha?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
                                 Editar Campanha
                             </a>
                         </div>
@@ -63,7 +63,7 @@
 
                 <div class="content">
                     <a class="button has-text-primary"
-                       href="../Controllers/controllerCriarSessao.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
+                       href="<?= BASE_URL ?>/criarSessao?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
                         Criar Sessão
                     </a>
                 </div>
@@ -88,7 +88,7 @@
                 <div class="content">
                     <label class="label has-text-primary">Adicionar personagem:</label>
 
-                    <form method="POST" action="../Controllers/controllerCampanha.php">
+                    <form method="POST" action="<?= BASE_URL ?>/campanha">
                         <input type="hidden" name="idC" value="<?= $campanhaSelecionada['idCampanha'] ?>">
 
                         <div class="my-2 field has-addons">

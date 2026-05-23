@@ -22,14 +22,14 @@
                         foreach($usuario['personagens'] as $personagem):
                     ?>
                             <div class="column is-3">
-                                <?php include("../Views/Templates/cardPersonagem.php"); ?>
+                                <?php include(__DIR__ . "/Templates/cardPersonagem.php"); ?>
                             </div>
                         <?php endforeach; ?>
 
 
                     <div class="column is-12">
                         <div class="content has-text-centered ">
-                            <a href="controllerCriarPersonagem.php" class="button has-text-primary">Criar Personagem</a>
+                            <a href="<?= BASE_URL ?>/criarPersonagem" class="button has-text-primary">Criar Personagem</a>
                         </div>
                     </div>
                 </div>

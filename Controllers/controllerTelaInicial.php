@@ -4,7 +4,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 // Verifica login
 if(empty($_SESSION['logado'])){
-    header('Location: controllerLogin.php');
+    header('Location: ' . BASE_URL . '/login');
     exit();
 }
 

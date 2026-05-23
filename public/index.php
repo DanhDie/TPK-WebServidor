@@ -1,4 +1,8 @@
 <?php
+// Require onces do mapeamento
+require_once __DIR__ . '/../vendor/autoload.php';
+
+
 echo $_SERVER["REQUEST_URI"];
 //Localmente pelo XAMPP: localhost/TPK-WebServidor/public/ 
 $base = "/TPK-WebServidor/public";
@@ -9,7 +13,7 @@ $rotas = [
     "/telaInicial" =>  __DIR__ ."/../Controllers/controllerTelaInicial.php",
     "/campanha" =>  __DIR__ ."/../Controllers/controllerCampanha.php",
     "/sessao" =>  __DIR__ ."/../Controllers/controllerSessao.php",
-    "/personagem" =>  __DIR__ ."/../Controllers/controllerPersonagem.php",
+    "/personagens" =>  __DIR__ ."/../Controllers/controllerPersonagens.php",
     "/perfil" =>  __DIR__ ."/../Controllers/controllerPerfil.php",
     "/login" =>  __DIR__ ."/../Controllers/controllerLogin.php",
     "/ficha" =>  __DIR__ ."/../Controllers/controllerFichaPersonagem.php",
@@ -20,6 +24,7 @@ $rotas = [
     "/criarPersonagem" =>  __DIR__ ."/../Controllers/controllerCriarPersonagem.php",
     "/criarCampanha" =>  __DIR__ ."/../Controllers/controllerCriarCampanha.php",
     "/cadastro" =>  __DIR__ ."/../Controllers/controllerCadastro.php",
+    "/logout" => __DIR__ . "/../Controllers/logout.php"
 
 ];
 

@@ -1,4 +1,4 @@
 <?php
     session_start();
     session_destroy();
-    header('Location: controllerLogin.php');
+    header('Location: ' . BASE_URL . '/login');

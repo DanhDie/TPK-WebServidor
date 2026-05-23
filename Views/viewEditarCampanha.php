@@ -9,11 +9,11 @@
                 <nav class="breadcrumb has-bullet-separator">
                     <ul>
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerTelaInicial.php">Campanhas</a>
+                            <a href="<?= BASE_URL ?>/telaInicial">Campanhas</a>
                         </li>
 
                         <li class="is-size-7">
-                            <a href="../Controllers/controllerCampanha.php?idC=<?= $idC ?>">
+                            <a href="<?= BASE_URL ?>/campanha?idC=<?= $idC ?>">
                                 <?= $campanhaSelecionada['nomeCampanha'] ?>
                             </a>
                         </li>
@@ -85,7 +85,7 @@
                         </button>
 
                         <a class="button"
-                           href="../Controllers/controllerCampanha.php?idC=<?= $idC ?>">
+                           href="<?= BASE_URL ?>/campanha?idC=<?= $idC ?>">
                             Cancelar
                         </a>
                     </div>

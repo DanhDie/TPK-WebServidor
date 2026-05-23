@@ -16,7 +16,7 @@
         protected $carisma;
         protected $velocidade;
 
-        public function statCalculator($stat){
+        public static function statCalculator($stat){
             # Devido ao arredondamento para cima / para baixo diferentes, eu tive que seperar
 
             # Se é maior ou igual a dez == Modificador positivo

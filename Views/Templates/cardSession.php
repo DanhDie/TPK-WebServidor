@@ -9,7 +9,7 @@
     <div class="content pb-0">
       <p class="is-size-7 has-text-weight-light"><?= $sessao['resumoSessao'] ?></p>
       
-      <a href="../Controllers/controllerSessao.php?idC=<?= $campanhaSelecionada['idCampanha'] ?>&idS=<?= $sessao['idSessao'] ?>" 
+      <a href="<?= BASE_URL ?>/sessao?idC=<?= $campanhaSelecionada['idCampanha'] ?>&idS=<?= $sessao['idSessao'] ?>" 
          class="mt-3 mb-0 is-size-7 button is-primary">
         + Informações
       </a>

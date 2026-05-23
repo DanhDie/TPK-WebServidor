@@ -24,7 +24,7 @@
         # Imagens https://www.w3schools.com/php/php_file_upload.asp, não está em inglês por causa de IA
         if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE) {
             # Image Upload via https://www.w3schools.com/php/php_file_upload.asp 
-            $target_dir = "../Views/ImageUploads/";
+            $target_dir = __DIR__ . "/../../resources/ImageUploads/";
             $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

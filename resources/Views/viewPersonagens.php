@@ -1,4 +1,4 @@
-<section class="container">
+﻿<section class="container">
     <div class="container">
         
         <div class="is-primary">
@@ -22,7 +22,7 @@
                         foreach($usuario['personagens'] as $personagem):
                     ?>
                             <div class="column is-3">
-                                <?php include(__DIR__ . "/Templates/cardPersonagem.php"); ?>
+                                <?php include(__DIR__ . "/../Templates/cardPersonagem.php"); ?>
                             </div>
                         <?php endforeach; ?>
 

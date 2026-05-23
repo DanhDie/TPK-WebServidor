@@ -1,4 +1,4 @@
-<section class="container">
+﻿<section class="container">
     <div class="container">
         
         <div class="is-primary">
@@ -48,14 +48,14 @@
                     </div>
                 </div>
 
-                <label class="is-size-4 label has-text-primary">Sessões</label>
+                <label class="is-size-4 label has-text-primary">SessÃµes</label>
                 <hr>
 
                 <div class="content columns is-multiline">
                     <?php if (!empty($campanhaSelecionada['sessoesCampanha'])): ?>
                         <?php foreach ($campanhaSelecionada['sessoesCampanha'] as $sessao): ?>
                             <div class="column is-3">
-                                <?php include("../Views/Templates/cardSession.php"); ?>
+                                <?php include __DIR__ . "/../Templates/cardSession.php"; ?>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -64,7 +64,7 @@
                 <div class="content">
                     <a class="button has-text-primary"
                        href="<?= BASE_URL ?>/criarSessao?idC=<?= $campanhaSelecionada['idCampanha'] ?>">
-                        Criar Sessão
+                        Criar SessÃ£o
                     </a>
                 </div>
 
@@ -76,7 +76,7 @@
                         <div class="columns is-multiline">
                             <?php foreach($campanhaSelecionada['personagensCampanha'] as $personagem): ?>
                                 <div class="column is-3">
-                                    <?php include("../Views/Templates/cardPersonagem.php"); ?>
+                                    <?php include __DIR__ . "/../Templates/cardPersonagem.php"; ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -119,3 +119,4 @@
         </div>
     </div>
 </section>
+

@@ -1,6 +1,7 @@
-<?php
-include("../Views/Templates/header.php");
+﻿<?php
+include __DIR__ . "/../../resources/Templates/header.php";
 
-include("../Views/viewPerfil.php");
+include __DIR__ . "/../../resources/Views/viewPerfil.php";
 
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../../resources/Templates/footer.php";
+

@@ -24,7 +24,7 @@ if (isset($_POST['submit']) && $_POST['submit'] === "Finalizar") {
 
         if (!empty($_FILES['imagem']['name'])) {
                 # Isso aqui tá sendo utilizado em três arquivos diferentes, se eu fosse gente eu fazia um outro arquivo que trataria isso, mas eu não tenho muito tempo
-                $target_dir = "../Views/ImageUploads/";
+                $target_dir = __DIR__ . "/../../resources/ImageUploads/";
                 $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

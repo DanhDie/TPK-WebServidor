@@ -1,12 +1,12 @@
-<?php
+﻿<?php
 $idC = isset($_GET['idC']) ? $_GET['idC'] : null;
 
 if (!$idC) {
-    echo "Erro: campanha não informada.";
+    echo "Erro: campanha nÃ£o informada.";
     exit;
 }
 
-include("../Views/Templates/header.php");
+include __DIR__ . "/../../resources/Templates/header.php";
 
 
 $campanhaIndex = null;
@@ -18,12 +18,13 @@ foreach ($usuario['campanhas'] as $i => $camp) {
 }
 
 if ($campanhaIndex === null) {
-    echo "Campanha não encontrada.";
+    echo "Campanha nÃ£o encontrada.";
     exit;
 }
 
 $campanhaSelecionada = $usuario['campanhas'][$campanhaIndex];
 
-include("./validationEditarCampanha.php");
-include("../Views/viewEditarCampanha.php");
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../Validators/validationEditarCampanha.php";
+include __DIR__ . "/../../resources/Views/viewEditarCampanha.php";
+include __DIR__ . "/../../resources/Templates/footer.php";
+

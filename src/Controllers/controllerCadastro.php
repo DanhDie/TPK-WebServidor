@@ -1,5 +1,6 @@
-<?php
-include("../Models/users.php");
-include("./validationCadastro.php");
-include("../Views/viewCadastro.php");
-include("../Views/Templates/footer.php");
+﻿<?php
+include __DIR__ . "/../Models/modelUser.php";
+include __DIR__ . "/../Validators/validationCadastro.php";
+include __DIR__ . "/../../resources/Views/viewCadastro.php";
+include __DIR__ . "/../../resources/Templates/footer.php";
+

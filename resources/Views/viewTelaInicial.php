@@ -1,4 +1,4 @@
-<section class="container">
+﻿<section class="container">
     <div class="container">
         
         <div class="is-primary">
@@ -22,7 +22,7 @@
                         foreach($campanhas as $campanha):
                     ?>
                             <div class="column is-4">
-                                <?php include(__DIR__ . "/Templates/card.php"); ?>
+                                <?php include(__DIR__ . "/../Templates/card.php"); ?>
                             </div>
                         <?php endforeach; ?>
 

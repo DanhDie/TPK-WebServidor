@@ -1,12 +1,12 @@
-<?php
+﻿<?php
 
-include("../Views/Templates/header.php");
+include __DIR__ . "/../../resources/Templates/header.php";
 
 
 $idP = isset($_GET['idP']) ? $_GET['idP'] : null;
 
 if (!$idP) {
-    echo "Erro: personagem não informado.";
+    echo "Erro: personagem nÃ£o informado.";
     exit;
 }
 
@@ -20,13 +20,14 @@ foreach ($usuario['personagens'] as $i => $pers) {
 }
 
 if ($personagemIndex === null) {
-    echo "Personagem não encontrado.";
+    echo "Personagem nÃ£o encontrado.";
     exit;
 }
 
 $personagemSelecionado = $usuario['personagens'][$personagemIndex];
 
 
-include("./validationEditarPersonagem.php");
-include("../Views/viewEditarPersonagem.php");
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../Validators/validationEditarPersonagem.php";
+include __DIR__ . "/../../resources/Views/viewEditarPersonagem.php";
+include __DIR__ . "/../../resources/Templates/footer.php";
+

@@ -1,7 +1,8 @@
-<?php
-include("../Views/Templates/header.php");
+﻿<?php
+include __DIR__ . "/../../resources/Templates/header.php";
 
-include("./validationCriarPersonagem.php");
-include("../Views/viewCriarPersonagem.php");
+include __DIR__ . "/../Validators/validationCriarPersonagem.php";
+include __DIR__ . "/../../resources/Views/viewCriarPersonagem.php";
 
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../../resources/Templates/footer.php";
+

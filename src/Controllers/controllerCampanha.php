@@ -1,5 +1,5 @@
-<?php
-include("../Views/Templates/header.php");
+﻿<?php
+include __DIR__ . "/../../resources/Templates/header.php";
 
 if (isset($_POST['addPersonagem'])) {
 
@@ -38,7 +38,7 @@ if (isset($_POST['addPersonagem'])) {
 $idC = isset($_GET['idC']) ? $_GET['idC'] : null;
 
 if (!$idC) {
-    echo "Erro: campanha não informada.";
+    echo "Erro: campanha nÃ£o informada.";
     exit;
 }
 
@@ -52,10 +52,11 @@ foreach ($usuario['campanhas'] as $camp) {
 }
 
 if (!$campanhaSelecionada) {
-    echo "Campanha não encontrada.";
+    echo "Campanha nÃ£o encontrada.";
     exit;
 }
 
-include("../Views/viewCampanha.php");
+include __DIR__ . "/../../resources/Views/viewCampanha.php";
 
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../../resources/Templates/footer.php";
+

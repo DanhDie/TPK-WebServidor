@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . "/../../bootstrap.php";
 
 // Se já estiver logado
 if(!empty($_SESSION['logado'])){
@@ -8,8 +8,8 @@ if(!empty($_SESSION['logado'])){
     exit();
 }
 
-include("validationLogin.php");
+include __DIR__ . "/../Validators/validationLogin.php";
 
-include("../Views/viewLogin.php");
+include __DIR__ . "/../../resources/Views/viewLogin.php";
 
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../../resources/Templates/footer.php";

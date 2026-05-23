@@ -1,14 +1,14 @@
-<?php
+﻿<?php
 
 $idS = isset($_GET['idS']) ? $_GET['idS'] : null;
 $idC = isset($_GET['idC']) ? $_GET['idC'] : null;
 
 if (!$idS || !$idC) {
-    echo "Erro: parâmetros inválidos.";
+    echo "Erro: parÃ¢metros invÃ¡lidos.";
     exit;
 }
 
-include("../Views/Templates/header.php");
+include __DIR__ . "/../../resources/Templates/header.php";
 
 $campanhaSelecionada = null;
 foreach ($usuario['campanhas'] as $camp) {
@@ -19,7 +19,7 @@ foreach ($usuario['campanhas'] as $camp) {
 }
 
 if (!$campanhaSelecionada) {
-    echo "Campanha não encontrada.";
+    echo "Campanha nÃ£o encontrada.";
     exit;
 }
 
@@ -32,10 +32,11 @@ foreach ($campanhaSelecionada['sessoesCampanha'] as $sess) {
 }
 
 if (!$sessaoSelecionada) {
-    echo "Sessão não encontrada.";
+    echo "SessÃ£o nÃ£o encontrada.";
     exit;
 }
 
-include("../Views/viewSessao.php");
+include __DIR__ . "/../../resources/Views/viewSessao.php";
 
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../../resources/Templates/footer.php";
+

@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . "/../../bootstrap.php";
 
 // Verifica login
 if(empty($_SESSION['logado'])){
@@ -31,8 +31,9 @@ try{
     die("Erro no banco: " . $e->getMessage());
 }
 
-include("../Views/Templates/header.php");
+include __DIR__ . "/../../resources/Templates/header.php";
 
-include("../Views/viewTelaInicial.php");
+include __DIR__ . "/../../resources/Views/viewTelaInicial.php";
 
-include("../Views/Templates/footer.php");
+include __DIR__ . "/../../resources/Templates/footer.php";
+

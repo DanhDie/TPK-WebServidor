@@ -1,29 +1,49 @@
 ﻿<?php
 
-include __DIR__ . "/../../resources/Templates/header.php";
-$idP = isset($_GET['idP']) ? $_GET['idP'] : null;
+require_once __DIR__ . "/../../bootstrap.php";
+
+if (empty($_SESSION['logado'])) {
+    header('Location: ' . BASE_URL . '/login');
+    exit();
+}
+
+$usuario = $_SESSION['infoUser'];
+
+$idP = $_GET['idP'] ?? null;
 
 if (!$idP) {
-    echo "Erro: personagem nÃ£o informado.";
-    exit;
+    die("Personagem não informado.");
 }
 
-$personagemIndex = null;
+try {
 
-foreach ($usuario['personagens'] as $i => $pers) {
-    if ($pers['idPersonagem'] == $idP) {
-        $personagemIndex = $i;
-        break;
+    $bd = Conexao::get();
+
+    $query = $bd->prepare("
+        SELECT *
+        FROM personagem
+        WHERE id = :id
+        AND usuario_id = :usuario_id
+    ");
+
+    $query->bindValue(':id', $idP);
+    $query->bindValue(':usuario_id', $usuario['id']);
+
+    $query->execute();
+
+    $personagemSelecionado = $query->fetch(PDO::FETCH_ASSOC);
+
+    if (!$personagemSelecionado) {
+        die("Personagem não encontrado.");
     }
+
+} catch (PDOException $e) {
+
+    die("Erro no banco: " . $e->getMessage());
 }
 
-if ($personagemIndex === null) {
-    echo "Personagem nÃ£o encontrado.";
-    exit;
-}
-
-$personagemSelecionado = $usuario['personagens'][$personagemIndex];
+include __DIR__ . "/../../resources/Templates/header.php";
 
 include __DIR__ . "/../../resources/Views/viewFichaPersonagem.php";
-include __DIR__ . "/../../resources/Templates/footer.php";
 
+include __DIR__ . "/../../resources/Templates/footer.php";

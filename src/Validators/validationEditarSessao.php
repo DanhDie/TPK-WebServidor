@@ -1,55 +1,84 @@
 <?php
 
-$sessaoInf=array('nomeSessao'=>'',
-                  'dataSessao'=>'',
-                  'resumoSessao'=>'');
+$sessaoInf = [
+    'nome' => $sessaoSelecionada['nome'],
+    'data_sessao' => $sessaoSelecionada['data_sessao'],
+    'resumo' => $sessaoSelecionada['resumo']
+];
 
-# erros
-$errors=array('nomeSessao'=>'',
-            'dataSessao'=>'');
+$errors = [
+    'nome' => '',
+    'data_sessao' => ''
+];
 
-    if (isset($_POST['finalizar'])) {
-        //pqp, talvez com Banco fique mais bonito?
-        # Passa por todos os campos de sessaoInf para verificar se tá preenchido
-        foreach($sessaoInf as $key => $value) {
-            if(empty($_POST[$key])): # Verifica se tá vazio
+if (isset($_POST['finalizar'])) {
 
-                if(array_key_exists($key,$errors)): # Vazio e obrigatório
-                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
+    foreach ($sessaoInf as $key => $value) {
 
-                else: # Vazio e não obrigatório
-                    $sessaoInf[$key]='N/A';
-                endif;
-            
-            else: # Não vazio
-                $sessaoInf[$key]=$_POST[$key];
-            endif; 
-        }
+        if (empty($_POST[$key])) {
 
-        # Verifica se tem erros
-        if(array_filter($errors)){} 
-        else{
-            # Atribuir os valores ao local da sessao para poder alterar
-            $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['nomeSessao'] = $sessaoInf['nomeSessao'];
-            $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['dataSessao'] = $sessaoInf['dataSessao'];
-            $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]['resumoSessao'] = $sessaoInf['resumoSessao'];
+            if (array_key_exists($key, $errors)) {
 
-            $_SESSION['infoUser'] = $usuario;
+                $errors[$key] =
+                    '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                        Campo obrigatório
+                    </p>';
+            }
 
-            header("Location: controllerSessao.php?idC=$idC&idS=$idS");
-            exit;
+        } else {
+
+            $sessaoInf[$key] = trim($_POST[$key]);
         }
     }
 
-    if (isset($_POST['excluir'])) {
+    if (!array_filter($errors)) {
 
-        unset($usuario['campanhas'][$campanhaIndex]['sessoesCampanha'][$sessaoIndex]);
-        
-        $usuario['campanhas'][$campanhaIndex]['sessoesCampanha'] =
-            array_values($usuario['campanhas'][$campanhaIndex]['sessoesCampanha']);
+        try {
 
-        $_SESSION['infoUser'] = $usuario;
+            $query = $bd->prepare("
+                UPDATE sessao
+                SET
+                    nome = :nome,
+                    data_sessao = :data_sessao,
+                    resumo = :resumo
+                WHERE id = :id
+            ");
 
-        header("Location: controllerCampanha.php?idC=$idC");
-        exit;
+            $query->bindValue(':nome', $sessaoInf['nome']);
+            $query->bindValue(':data_sessao', $sessaoInf['data_sessao']);
+            $query->bindValue(':resumo', $sessaoInf['resumo']);
+            $query->bindValue(':id', $idS);
+
+            $query->execute();
+
+            header('Location: ' . BASE_URL . '/sessao?idC=' . $idC . '&idS=' . $idS);
+            exit();
+
+        } catch (PDOException $e) {
+
+            die("Erro ao editar sessão: " . $e->getMessage());
+        }
     }
+}
+
+if (isset($_POST['excluir'])) {
+
+    try {
+
+        $query = $bd->prepare("
+            DELETE FROM sessao
+            WHERE id = :id
+        ");
+
+        $query->bindValue(':id', $idS);
+
+        $query->execute();
+
+        header('Location: ' . BASE_URL . '/campanha?idC=' . $idC);
+        exit();
+
+    } catch (PDOException $e) {
+
+        die("Erro ao excluir sessão: " . $e->getMessage());
+    }
+}

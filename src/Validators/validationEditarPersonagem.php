@@ -1,14 +1,12 @@
 <?php
-$personagemSelecionado = $usuario['personagens'][$personagemIndex];
 
-# Por escrito
 $personagemDesc = array(
     'nome' => $personagemSelecionado['nome'],
     'classe' => $personagemSelecionado['classe'],
     'subclasse' => $personagemSelecionado['subclasse'],
     'historia' => $personagemSelecionado['historia']
 );
-# Por números
+
 $personagemStats = array(
     'level' => $personagemSelecionado['level'],
     'forca' => $personagemSelecionado['forca'],
@@ -22,7 +20,6 @@ $personagemStats = array(
     'velocidade' => $personagemSelecionado['velocidade']
 );
 
-# erros
 $errors = array(
     'nome' => '',
     'level' => '',
@@ -35,63 +32,122 @@ $errors = array(
     'carisma' => '',
     'vida'=> '',
     'armadura' => '',
-    'velocidade' => '',
-    'imagem' => ''
+    'velocidade' => ''
 );
 
-# Lógica de validação dos campos
-# Formulário enviado
 if (isset($_POST['submit']) && $_POST['submit'] === "Atualizar") {
 
-    # Campos descritivos
-    foreach ($personagemDesc as $key => $value) { 
+    foreach ($personagemDesc as $key => $value) {
+
         if (empty($_POST[$key])) {
-            if (array_key_exists($key, $errors)) { # Se vazio e obrigatório
+
+            if (array_key_exists($key, $errors)) {
                 $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
-            } else { #Vazio e não obrigatório
+            } else {
                 $personagemDesc[$key] = 'N/A';
             }
-        } else { # Tudo certo
-            $personagemDesc[$key] = $_POST[$key];
-        }
-    }
 
-    # Campos numéricos
-    foreach ($personagemStats as $key => $value) {
-        if (empty($_POST[$key])) {
-            if (array_key_exists($key, $errors)) { # vazio (todos os stats são obrigatórios)
-                $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
-            }
         } else {
-            if (!is_numeric($_POST[$key])) { # Não é um numero
+
+            $personagemDesc[$key] = trim($_POST[$key]);
+        }
+    }
+
+    foreach ($personagemStats as $key => $value) {
+
+        if (empty($_POST[$key])) {
+
+            $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
+
+        } else {
+
+            if (!is_numeric($_POST[$key])) {
+
                 $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">O campo deve conter um número</p>';
-            } else { #Tudo certo
-                $personagemStats[$key] = $_POST[$key];
+
+            } else {
+
+                $personagemStats[$key] = trim($_POST[$key]);
             }
         }
     }
 
-    # Validação de erros
-    if (array_filter($errors)) {}
-    else{
+    if (!array_filter($errors)) {
 
-        # Mantém idPersonagem e atualiza o resto
-        $usuario['personagens'][$personagemIndex] = array_merge(
-            $personagemSelecionado,
-            $personagemDesc,
-            $personagemStats
-        );
+        try {
 
-        $_SESSION['infoUser'] = $usuario;
-        header("Location: controllerFichaPersonagem.php?idP=$idP");
-        exit;
+            $bd = Conexao::get();
+
+            $query = $bd->prepare("
+                UPDATE personagem
+                SET
+                    nome = :nome,
+                    classe = :classe,
+                    subclasse = :subclasse,
+                    historia = :historia,
+                    level = :level,
+                    forca = :forca,
+                    destreza = :destreza,
+                    constituicao = :constituicao,
+                    inteligencia = :inteligencia,
+                    sabedoria = :sabedoria,
+                    carisma = :carisma,
+                    vida = :vida,
+                    armadura = :armadura,
+                    velocidade = :velocidade
+                WHERE id = :id
+            ");
+
+            $query->bindValue(':nome', $personagemDesc['nome']);
+            $query->bindValue(':classe', $personagemDesc['classe']);
+            $query->bindValue(':subclasse', $personagemDesc['subclasse']);
+            $query->bindValue(':historia', $personagemDesc['historia']);
+
+            $query->bindValue(':level', $personagemStats['level']);
+            $query->bindValue(':forca', $personagemStats['forca']);
+            $query->bindValue(':destreza', $personagemStats['destreza']);
+            $query->bindValue(':constituicao', $personagemStats['constituicao']);
+            $query->bindValue(':inteligencia', $personagemStats['inteligencia']);
+            $query->bindValue(':sabedoria', $personagemStats['sabedoria']);
+            $query->bindValue(':carisma', $personagemStats['carisma']);
+            $query->bindValue(':vida', $personagemStats['vida']);
+            $query->bindValue(':armadura', $personagemStats['armadura']);
+            $query->bindValue(':velocidade', $personagemStats['velocidade']);
+
+            $query->bindValue(':id', $idP);
+
+            $query->execute();
+
+            header("Location: " . BASE_URL . "/ficha?idP=$idP");
+            exit;
+
+        } catch(PDOException $e) {
+
+            die("Erro no banco: " . $e->getMessage());
+        }
     }
 }
 
 if (isset($_POST['excluir'])) {
-    unset($usuario['personagens'][$personagemIndex]);
-    $usuario['personagens'] = array_values($usuario['personagens']);
-    $_SESSION['infoUser'] = $usuario;
-    header("Location: controllerPersonagens.php");
-    exit;
+
+    try {
+
+        $bd = Conexao::get();
+
+        $query = $bd->prepare("
+            DELETE FROM personagem
+            WHERE id = :id
+        ");
+
+        $query->bindValue(':id', $idP);
+
+        $query->execute();
+
+        header("Location: " . BASE_URL . "/personagens");
+        exit;
+
+    } catch(PDOException $e) {
+
+        die("Erro no banco: " . $e->getMessage());
+    }
 }

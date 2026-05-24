@@ -1,127 +1,177 @@
 <?php
-    $target_file = null;
-    $imagem = array("imagem" => null);
-    # Por escrito
-    $personagemDesc=array('nome'=>'',
-                          'classe'=>'',
-                          'subclasse'=>'',
-                          'historia'=>'');
 
-    # Por números
-    $personagemStats=array('level'=>'',
-            'forca'=>'',
-            'destreza'=>'',
-            'constituicao'=>'',
-            'inteligencia'=>'',
-            'sabedoria'=>'',
-            'carisma'=>'',
-            'vida'=>'',
-            'armadura'=>'',
-            'velocidade'=>'');
+require_once __DIR__ . "/../../bootstrap.php";
 
-    # erros
-    $uploadOk = 1;
-    $errors=array('nome'=>'',
-            'level'=>'',
-            'classe'=>'',
-            'forca'=>'',
-            'destreza'=>'',
-            'constituicao'=>'',
-            'inteligencia'=>'',
-            'sabedoria'=>'',
-            'carisma'=>'',
-            'vida'=>'',
-            'armadura'=>'',
-            'velocidade'=>'');
+$target_file = null;
 
-    # Lógica de validação dos campos
-    # Formulário enviado
-    if(isset($_POST["submit"])):
-        # Passa por todos os campos de personagemDesc para verificar se tá preenchido
-        foreach($personagemDesc as $key => $value) {
-            if(empty($_POST[$key])): # Verifica se tá vazio
+$personagemDesc = array(
+    'nome' => '',
+    'classe' => '',
+    'subclasse' => '',
+    'historia' => ''
+);
 
-                if(array_key_exists($key,$errors)): # Vazio e obrigatório
-                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
+$personagemStats = array(
+    'level' => '',
+    'forca' => '',
+    'destreza' => '',
+    'constituicao' => '',
+    'inteligencia' => '',
+    'sabedoria' => '',
+    'carisma' => '',
+    'vida' => '',
+    'armadura' => '',
+    'velocidade' => ''
+);
 
-                else: # Vazio e não obrigatório
-                    $personagemDesc[$key]='N/A';
-                endif;
+$errors = array(
+    'nome' => '',
+    'level' => '',
+    'classe' => '',
+    'forca' => '',
+    'destreza' => '',
+    'constituicao' => '',
+    'inteligencia' => '',
+    'sabedoria' => '',
+    'carisma' => '',
+    'vida' => '',
+    'armadura' => '',
+    'velocidade' => '',
+    'imagem' => ''
+);
 
-            else: # Não vazio
-                $personagemDesc[$key]=$_POST[$key];
-            endif; 
-        }
-        
-        # Passa por todos os campos de personagemStats para verificar se tá preenchido E se se tratam de números
-        foreach($personagemStats as $key => $value) {
-            if(empty($_POST[$key])): # Verifica se tá vazio
+if(isset($_POST["submit"])):
 
-                if(array_key_exists($key,$errors)): # Vazio e obrigatório
-                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
-                endif;
-            
-            else: # Não vazio
-                if(!is_numeric($_POST[$key])):
-                    $errors[$key]='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">O campo deve conter um número</p>';
-                
-                else:
-                    $personagemStats[$key]=$_POST[$key];
-                endif;
-            endif; 
-        }
+    foreach($personagemDesc as $key => $value){
 
-        # Imagens https://www.w3schools.com/php/php_file_upload.asp, não está em inglês por causa de IA
-        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE) {
-            # Image Upload via https://www.w3schools.com/php/php_file_upload.asp 
-            $target_dir = __DIR__ . "/../../resources/ImageUploads/";
-            $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        if(empty($_POST[$key])){
 
-
-            # Checagem de imagem ser imagem! https://www.w3schools.com/php/php_file_upload.asp
-            $check = getimagesize($_FILES["imagem"]["tmp_name"]);
-            if($check !== false) {
-                #echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
+            if(array_key_exists($key, $errors)){
+                $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
             } else {
-                $errors['imagem'] = 'O arquivo não é uma imagem válida.';
-                $uploadOk = 0;
+                $personagemDesc[$key] = 'N/A';
+            }
+
+        } else {
+            $personagemDesc[$key] = trim($_POST[$key]);
+        }
+    }
+
+    foreach($personagemStats as $key => $value){
+
+        if(empty($_POST[$key])){
+
+            $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Campo obrigatório</p>';
+
+        } else {
+
+            if(!is_numeric($_POST[$key])){
+
+                $errors[$key] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">O campo deve conter um número</p>';
+
+            } else {
+
+                $personagemStats[$key] = trim($_POST[$key]);
             }
         }
-        
-        if(array_filter($errors)){} 
-        else{
-                    # Se tudo foi preenchido,
-                    # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
-                    if ($uploadOk == 0 && isset($target_file)) {
-                        // if everything is ok, try to upload file
-                        } 
-                        else {
-                            if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
-                                $imagem=array('imagem'=>$target_file);
-                            }
-                        }
+    }
 
-                    # Gerar ID única da sessão
-                    $ultimoPersonagem = end($usuario['personagens']);
+    if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE){
 
-                    $id = array('idPersonagem' => $ultimoPersonagem ? $ultimoPersonagem['idPersonagem']+1 : 1);
+        $target_dir = __DIR__ . "/../../resources/ImageUploads/";
 
-                    # Merge de todas as informações
-                    $personagem=array_merge($imagem, $personagemDesc, $personagemStats, $id);
-                    
+        if(!is_dir($target_dir)){
+            mkdir($target_dir, 0777, true);
+        }
 
-                    # Atribuir $personagem aos personagens do usuário
-                    $usuario['personagens'][] = $personagem;
+        $nomeArquivo = time() . "_" . basename($_FILES["imagem"]["name"]);
 
-                    # Salvar info
-                    $_SESSION['infoUser'] = $usuario;
+        $target_file = $target_dir . $nomeArquivo;
 
-                    # Retornar para a tela de personagens
-                    header('Location: controllerPersonagens.php');
-                    exit();
-                }
-    endif;
-?>
+        $check = getimagesize($_FILES["imagem"]["tmp_name"]);
+
+        if($check === false){
+            $errors['imagem'] = '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Arquivo inválido</p>';
+        }
+    }
+
+    if(!array_filter($errors)){
+
+        $imagemBanco = null;
+
+        if($target_file){
+
+            if(move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)){
+
+                $imagemBanco = BASE_URL . "/resources/ImageUploads/" . $nomeArquivo;
+            }
+        }
+
+        try{
+
+            $bd = Conexao::get();
+
+            $query = $bd->prepare("
+                INSERT INTO personagem (
+                    nome,
+                    classe,
+                    subclasse,
+                    historia,
+                    level,
+                    forca,
+                    destreza,
+                    constituicao,
+                    inteligencia,
+                    sabedoria,
+                    carisma,
+                    vida,
+                    armadura,
+                    velocidade,
+                    usuario_id
+                ) VALUES (
+                    :nome,
+                    :classe,
+                    :subclasse,
+                    :historia,
+                    :level,
+                    :forca,
+                    :destreza,
+                    :constituicao,
+                    :inteligencia,
+                    :sabedoria,
+                    :carisma,
+                    :vida,
+                    :armadura,
+                    :velocidade,
+                    :usuario_id
+                )
+            ");
+
+            $query->bindValue(':nome', $personagemDesc['nome']);
+            $query->bindValue(':classe', $personagemDesc['classe']);
+            $query->bindValue(':subclasse', $personagemDesc['subclasse']);
+            $query->bindValue(':historia', $personagemDesc['historia']);
+            $query->bindValue(':level', $personagemStats['level']);
+            $query->bindValue(':forca', $personagemStats['forca']);
+            $query->bindValue(':destreza', $personagemStats['destreza']);
+            $query->bindValue(':constituicao', $personagemStats['constituicao']);
+            $query->bindValue(':inteligencia', $personagemStats['inteligencia']);
+            $query->bindValue(':sabedoria', $personagemStats['sabedoria']);
+            $query->bindValue(':carisma', $personagemStats['carisma']);
+            $query->bindValue(':vida', $personagemStats['vida']);
+            $query->bindValue(':armadura', $personagemStats['armadura']);
+            $query->bindValue(':velocidade', $personagemStats['velocidade']);
+            $query->bindValue(':usuario_id', $_SESSION['infoUser']['id']);
+
+            $query->execute();
+
+            header('Location: ' . BASE_URL . '/personagens');
+            exit();
+
+        } catch(PDOException $e){
+
+            die("Erro no banco: " . $e->getMessage());
+        }
+    }
+
+endif;

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,69 +7,130 @@
     <link rel="stylesheet" href="../public/CSS/style.css">
     <title>TPK - Cadastro</title>
 </head>
-<body class="">
-    <main>
-        
-    <section class="section">
-        <div class="container my-6">
-            <div class="box has-text-centered">
-                <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary">TPK</h1>
-                <h2 class="is-size-6 has-text-weight-light">Seu gerenciador de campanhas</h2>
-            </div>
-            <form class="box" action="" method="POST">
-                <label for="" class="is-size-5 label has-text-primary">CADASTRAR USUÁRIO</label>
-                <div class="field">
-                    <label class="label">Nome:</label>
-                    <div class="control">
-                    <input class="input" type="text" name="nome" placeholder="insira aqui seu nome" value="<?php echo $nome ?>" />
-                    </div>
-                </div>
-                <?php
-                echo $errors['nome'];                
-                ?>
-                <div class="field">
-                    <label class="label">Email:</label>
-                    <div class="control">
-                    <input class="input" type="text" name="email" placeholder="exemplo@email.com" value="<?php echo $email ?>" />
-                    </div>
-                </div>
-                <?php
-                echo $errors['email'];                
-                ?>
 
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">Senha:</label>
-                            <div class="control">
-                            <input value="<?php echo $senha ?>" class="input" type="text" name="senha" placeholder="********" />
-                            </div>
-                        </div>
-                        <?php
-                        echo $errors['senha'];                
-                        ?>   
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">Confirmar senha:</label>
-                            <div class="control">
-                            <input value="<?php echo $senhaConfirm ?>" class="input" type="text" name="senhaConfirma" placeholder="********" />
-                            </div>
-                        </div>
-                        <?php
-                        echo $errors['senhaConfirm'];                
-                        ?>   
-                    </div>
-                </div>          
+<body>
 
-                <button >
-                    <input class="button is-primary" name="submit" type="submit" value="Cadastrar">
-                </button>
+<main>
 
-                <div class="mt-2">
-                    <a href="<?= BASE_URL ?>/" class="is-size-7 has-text-primary is-underlined">Já possui conta? Entre já!</a>
-                </div>
-                
-            </form>
+<section class="section">
+
+    <div class="container my-6">
+
+        <div class="box has-text-centered">
+            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary">
+                TPK
+            </h1>
+
+            <h2 class="is-size-6 has-text-weight-light">
+                Seu gerenciador de campanhas
+            </h2>
         </div>
-    </section>
+
+        <form class="box" action="" method="POST">
+
+            <label class="is-size-5 label has-text-primary">
+                CADASTRAR USUÁRIO
+            </label>
+
+            <div class="field">
+                <label class="label">Nome:</label>
+
+                <div class="control">
+                    <input
+                        class="input"
+                        type="text"
+                        name="nome"
+                        placeholder="insira aqui seu nome"
+                        value="<?= $nome ?>"
+                    />
+                </div>
+            </div>
+
+            <?= $errors['nome'] ?>
+
+            <div class="field">
+                <label class="label">Email:</label>
+
+                <div class="control">
+                    <input
+                        class="input"
+                        type="text"
+                        name="email"
+                        placeholder="exemplo@email.com"
+                        value="<?= $email ?>"
+                    />
+                </div>
+            </div>
+
+            <?= $errors['email'] ?>
+
+            <div class="columns">
+
+                <div class="column">
+
+                    <div class="field">
+                        <label class="label">Senha:</label>
+
+                        <div class="control">
+                            <input
+                                class="input"
+                                type="password"
+                                name="senha"
+                                placeholder="********"
+                            />
+                        </div>
+                    </div>
+
+                    <?= $errors['senha'] ?>
+
+                </div>
+
+                <div class="column">
+
+                    <div class="field">
+                        <label class="label">Confirmar senha:</label>
+
+                        <div class="control">
+                            <input
+                                class="input"
+                                type="password"
+                                name="senhaConfirma"
+                                placeholder="********"
+                            />
+                        </div>
+                    </div>
+
+                    <?= $errors['senhaConfirm'] ?>
+
+                </div>
+
+            </div>
+
+            <button>
+                <input
+                    class="button is-primary"
+                    name="submit"
+                    type="submit"
+                    value="Cadastrar"
+                >
+            </button>
+
+            <div class="mt-2">
+                <a
+                    href="<?= BASE_URL ?>/"
+                    class="is-size-7 has-text-primary is-underlined"
+                >
+                    Já possui conta? Entre já!
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+</main>
+
+</body>
+</html>

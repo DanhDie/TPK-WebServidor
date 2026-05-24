@@ -1,73 +1,171 @@
 <?php
 
-$campanhaNome = $campanhaSelecionada['nomeCampanha'];
-$campanhaDesc = $campanhaSelecionada['descCampanha'];
-$campanhaSistema = $campanhaSelecionada['sistemaCampanha'];
+$campanhaNome = $campanhaSelecionada['nome'];
+$campanhaDesc = $campanhaSelecionada['descricao'];
+$campanhaSistema = $campanhaSelecionada['sistema'];
 
-$sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
+$sistemas = [
+    "Dungeons & Dragons",
+    "Ordem Paranormal",
+    "Brutal",
+    "Sacramento",
+    "Assimilação"
+];
 
-$errors=array('nome'=>'',
-              'sistema'=>'',
-              'imagem'=>'');
+$errors = [
+    'nome' => '',
+    'sistema' => '',
+    'imagem' => ''
+];
 
+// =====================================
+// EDITAR CAMPANHA
+// =====================================
+if (
+    isset($_POST['submit']) &&
+    $_POST['submit'] === "Finalizar"
+) {
 
-if (isset($_POST['submit']) && $_POST['submit'] === "Finalizar") {
-        if(empty($_POST['nome'])):
-            $errors['nome']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Não pode ser vazio</p>';
-        else:
-            $campanhaNome = $_POST['nome'];
-        endif;
-        
-        $campanhaDesc = $_POST['desc'];
+    // ==========================
+    // NOME
+    // ==========================
+    if (empty(trim($_POST['nome']))) {
+
+        $errors['nome'] =
+            '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                Não pode ser vazio
+            </p>';
+
+    } else {
+
+        $campanhaNome = trim($_POST['nome']);
+    }
+
+    // ==========================
+    // DESCRIÇÃO
+    // ==========================
+    $campanhaDesc = trim($_POST['desc']);
+
+    // ==========================
+    // SISTEMA
+    // ==========================
+    if (empty($_POST['sistema'])) {
+
+        $errors['sistema'] =
+            '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                Escolha um sistema
+            </p>';
+
+    } else {
 
         $campanhaSistema = $_POST['sistema'];
+    }
 
-        if (!empty($_FILES['imagem']['name'])) {
-                # Isso aqui tá sendo utilizado em três arquivos diferentes, se eu fosse gente eu fazia um outro arquivo que trataria isso, mas eu não tenho muito tempo
-                $target_dir = __DIR__ . "/../../resources/ImageUploads/";
-                $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    // ==========================
+    // IMAGEM
+    // ==========================
+    $caminhoImagem = $campanhaSelecionada['imagem'];
 
-                # Checagem de imagem ser imagem! https://www.w3schools.com/php/php_file_upload.asp
-                $check = getimagesize($_FILES["imagem"]["tmp_name"]);
-                if($check !== false) {
-                    #echo "File is an image - " . $check["mime"] . ".";
-                    $uploadOk = 1;
-                } else {
-                    $errors['imagem'] = 'O arquivo não é uma imagem válida.';
-                    $uploadOk = 0;
-                }
+    if (
+        isset($_FILES['imagem']) &&
+        $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE
+    ) {
+
+        $targetDir = __DIR__ . "/../../public/uploads/";
+
+        if (!is_dir($targetDir)) {
+
+            mkdir($targetDir, 0777, true);
         }
 
-        if(array_filter($errors)){} # Se tem problemas, não deixa seguir em frente
-        else{ # Se tá tudo certo, atribui tudo
-            # Atribuição da imagem
-            if ($uploadOk == 1 && isset($target_file)) {
-                // if everything is ok, try to upload file
-                if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
-                    $usuario['campanhas'][$campanhaIndex]['imagemCampanha'] = $target_file;
-                }
+        $nomeArquivo =
+            time() . "_" . basename($_FILES["imagem"]["name"]);
+
+        $targetFile = $targetDir . $nomeArquivo;
+
+        $check = getimagesize($_FILES["imagem"]["tmp_name"]);
+
+        if ($check === false) {
+
+            $errors['imagem'] =
+                '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                    O arquivo não é uma imagem válida.
+                </p>';
+
+        } else {
+
+            if (
+                move_uploaded_file(
+                    $_FILES["imagem"]["tmp_name"],
+                    $targetFile
+                )
+            ) {
+
+                $caminhoImagem =
+                    BASE_URL . "/uploads/" . $nomeArquivo;
             }
-            
-            # Atribuição das coisas
-            $usuario['campanhas'][$campanhaIndex]['nomeCampanha'] = $campanhaNome;
-            $usuario['campanhas'][$campanhaIndex]['descCampanha'] = $campanhaDesc;
-            $usuario['campanhas'][$campanhaIndex]['sistemaCampanha'] = $campanhaSistema;
-
-            $_SESSION['infoUser'] = $usuario;
-
-            header("Location: controllerCampanha.php?idC=$idC");
-            exit;
         }
-        
-        
+    }
+
+    // ==========================
+    // SEM ERROS
+    // ==========================
+    if (!array_filter($errors)) {
+
+        try {
+
+            $queryUpdate = $bd->prepare("
+                UPDATE campanha
+                SET
+                    nome = :nome,
+                    descricao = :descricao,
+                    sistema = :sistema,
+                    imagem = :imagem
+                WHERE id = :id
+            ");
+
+            $queryUpdate->bindValue(':nome', $campanhaNome);
+            $queryUpdate->bindValue(':descricao', $campanhaDesc);
+            $queryUpdate->bindValue(':sistema', $campanhaSistema);
+            $queryUpdate->bindValue(':imagem', $caminhoImagem);
+            $queryUpdate->bindValue(':id', $idC);
+
+            $queryUpdate->execute();
+
+            header("Location: " . BASE_URL . "/campanha?idC=$idC");
+            exit();
+
+        } catch (PDOException $e) {
+
+            die("Erro ao editar campanha: " . $e->getMessage());
+        }
+    }
 }
 
-if (isset($_POST['submit']) && $_POST['submit'] === "Excluir") {
-    unset($usuario['campanhas'][$campanhaIndex]);
-    $usuario['campanhas'] = array_values($usuario['campanhas']);
-    $_SESSION['infoUser'] = $usuario;
-    header("Location: controllerTelaInicial.php");
-    exit;
+// =====================================
+// EXCLUIR CAMPANHA
+// =====================================
+if (
+    isset($_POST['submit']) &&
+    $_POST['submit'] === "Excluir"
+) {
+
+    try {
+
+        $queryDelete = $bd->prepare("
+            DELETE FROM campanha
+            WHERE id = :id
+        ");
+
+        $queryDelete->bindValue(':id', $idC);
+
+        $queryDelete->execute();
+
+        header("Location: " . BASE_URL . "/telaInicial");
+        exit();
+
+    } catch (PDOException $e) {
+
+        die("Erro ao excluir campanha: " . $e->getMessage());
+    }
 }

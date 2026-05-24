@@ -1,95 +1,140 @@
 <?php
-    $campanhaNome=$campanhaSistema=$campanhaDesc='';
-    $sistemas = ["Dungeons & Dragons", "Ordem Paranormal", "Brutal", "Sacramento", "Assimilação"];
 
-    # erros
-    $uploadOk = 1;
-    $errors=array('nome'=>'',
-            'sistema'=>'',
-            'imagem'=>'');
+$campanhaNome = '';
+$campanhaSistema = '';
+$campanhaDesc = '';
 
-    # Lógica de validação dos campos
-    # Formulário enviado
-    if(isset($_POST["submit"])):
-        # Nome tem que ser escrito
-        if(empty($_POST['nome'])):
-            $errors['nome']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum nome inserido</p>';
-        else:
-            $campanhaNome=$_POST['nome'];
-        endif;
+$sistemas = [
+    "Dungeons & Dragons",
+    "Ordem Paranormal",
+    "Brutal",
+    "Sacramento",
+    "Assimilação"
+];
 
-        # A descrição é opcional
-        $campanhaDesc=$_POST['desc'];
+$errors = [
+    'nome' => '',
+    'sistema' => '',
+    'imagem' => ''
+];
 
-        # Imagens https://www.w3schools.com/php/php_file_upload.asp, não está em inglês por causa de IA
-        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE) {
-            # Image Upload via https://www.w3schools.com/php/php_file_upload.asp 
-            $target_dir = __DIR__ . "/../../resources/ImageUploads/";
-            $target_file = $target_dir . basename($_FILES["imagem"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+if (isset($_POST["submit"])) {
 
+    $usuario = $_SESSION['infoUser'];
 
-            # Checagem de imagem ser imagem! https://www.w3schools.com/php/php_file_upload.asp
-            $check = getimagesize($_FILES["imagem"]["tmp_name"]);
-            if($check !== false) {
-                #echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-            } else {
-                $errors['imagem'] = 'O arquivo não é uma imagem válida.';
-                $uploadOk = 0;
-            }
+    if (empty(trim($_POST['nome']))) {
+
+        $errors['nome'] =
+            '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                Nenhum nome inserido
+            </p>';
+
+    } else {
+
+        $campanhaNome = trim($_POST['nome']);
+    }
+
+    $campanhaDesc = trim($_POST['desc']);
+
+    if (empty($_POST['sistema'])) {
+
+        $errors['sistema'] =
+            '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                Nenhum sistema escolhido
+            </p>';
+
+    } else {
+
+        $campanhaSistema = $_POST['sistema'];
+    }
+
+    $caminhoImagem = null;
+
+    if (
+        isset($_FILES['imagem']) &&
+        $_FILES['imagem']['error'] !== UPLOAD_ERR_NO_FILE
+    ) {
+
+        $targetDir = __DIR__ . "/../../public/uploads/";
+
+        // cria pasta caso não exista
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
         }
 
-        # Sistema deve ser escolhido
-        if(empty($_POST['sistema'])):
-            $errors['sistema']='<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">Nenhum sistema escolhido</p>';
-            else:
-                $campanhaSistema=$_POST['sistema'];
-        endif;
-                
-        if(array_filter($errors)){ # Procura por erros (lugares em branco)
-                    
-                } else{
-                    # Se tudo foi preenchido,
+        $nomeArquivo = time() . "_" . basename($_FILES["imagem"]["name"]);
 
-                    # Upload real (ou não) da imagem https://www.w3schools.com/php/php_file_upload.asp
-                    if ($uploadOk == 1 && isset($target_file)) {
-                        // if everything is ok, try to upload file
-                        if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $target_file)) {
-                                #echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                        }
-                        else {
-                                #echo "Sorry, there was an error uploading your file.";
-                            }
-                        
-                        }
-                        else {
-                            #echo "Sorry, your file was not uploaded.";
-                            } 
-                        
+        $targetFile = $targetDir . $nomeArquivo;
 
-                    # Gerar ID única da sessão
-                    $ultimaCampanha = end($usuario['campanhas']);
+        $imageFileType = strtolower(
+            pathinfo($targetFile, PATHINFO_EXTENSION)
+        );
 
-                    $id = $ultimaCampanha ? $ultimaCampanha['idCampanha']+1 : 1;
+        // Verifica imagem
+        $check = getimagesize($_FILES["imagem"]["tmp_name"]);
 
-                    # Atribuir informações a um array associativo (enquanto não há DB)
-                    $campanha=[ 'imagemCampanha'=>$target_file,
-                                'nomeCampanha'=>$campanhaNome,
-                                'sistemaCampanha'=>$campanhaSistema,
-                                'descCampanha'=>$campanhaDesc,
-                                'idCampanha'=>$id];
-                    
-                    # Atribuir $campanha às campanhas do usuário
-                    array_push($usuario['campanhas'],$campanha);
+        if ($check === false) {
 
-                    # Salvar info
-                    $_SESSION['infoUser'] = $usuario;
+            $errors['imagem'] =
+                '<p class="pb-2 is-size-7 has-text-danger has-text-weight-light">
+                    O arquivo não é uma imagem válida.
+                </p>';
 
-                    # Retornar para a tela inciai
-                    header('Location: controllerTelaInicial.php');
-                    exit();
-                }
-    endif;
-?>
+        } else {
+
+            if (
+                move_uploaded_file(
+                    $_FILES["imagem"]["tmp_name"],
+                    $targetFile
+                )
+            ) {
+
+                // caminho salvo no banco
+                $caminhoImagem =
+                    BASE_URL . "/uploads/" . $nomeArquivo;
+            }
+        }
+    }
+
+    if (!array_filter($errors)) {
+
+        try {
+
+            $bd = Conexao::get();
+
+            $query = $bd->prepare("
+                INSERT INTO campanha
+                (
+                    nome,
+                    descricao,
+                    imagem,
+                    sistema,
+                    usuario_id
+                )
+                VALUES
+                (
+                    :nome,
+                    :descricao,
+                    :imagem,
+                    :sistema,
+                    :usuario_id
+                )
+            ");
+
+            $query->bindValue(':nome', $campanhaNome);
+            $query->bindValue(':descricao', $campanhaDesc);
+            $query->bindValue(':imagem', $caminhoImagem);
+            $query->bindValue(':sistema', $campanhaSistema);
+            $query->bindValue(':usuario_id', $usuario['id']);
+
+            $query->execute();
+
+            header('Location: ' . BASE_URL . '/telaInicial');
+            exit();
+
+        } catch (PDOException $e) {
+
+            die("Erro ao criar campanha: " . $e->getMessage());
+        }
+    }
+}

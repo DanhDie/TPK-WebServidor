@@ -8,24 +8,25 @@ class Conexao {
 
         try {
 
-            if(!isset(self::$instancia)) {
+            if (!isset(self::$instancia)) {
 
                 self::$instancia = new PDO(
-                    'mysql:host=localhost;dbname=bdTPK;charset=utf8',
+                    'mysql:host=localhost;dbname=bdTPK',
                     'root',
                     ''
                 );
 
+                self::$instancia->setAttribute(
+                    PDO::ATTR_ERRMODE,
+                    PDO::ERRMODE_EXCEPTION
+                );
             }
 
             return self::$instancia;
 
-        } catch(PDOException $e){
+        } catch (PDOException $e) {
 
-            throw new Exception(
-                "Erro na conexão: " . $e->getMessage()
-            );
+            die("Erro na conexão: " . $e->getMessage());
         }
     }
 }
-?>

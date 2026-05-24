@@ -37,3 +37,4 @@ include __DIR__ . "/../../resources/Views/viewTelaInicial.php";
 
 include __DIR__ . "/../../resources/Templates/footer.php";
 
+//

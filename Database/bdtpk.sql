@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14/05/2026 às 22:44
+-- Tempo de geração: 24/05/2026 às 20:25
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `campanha` (
   `usuario_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `campanha`
+--
+
+INSERT INTO `campanha` (`id`, `nome`, `descricao`, `imagem`, `sistema`, `usuario_id`) VALUES
+(1, 'Campanha teste', 'Esta é uma campanha teste que acontece varias aventuras.', NULL, 'Dungeons and Dragons', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +69,13 @@ CREATE TABLE `personagem` (
   `campanha_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `personagem`
+--
+
+INSERT INTO `personagem` (`id`, `nome`, `classe`, `subclasse`, `historia`, `level`, `forca`, `destreza`, `constituicao`, `inteligencia`, `sabedoria`, `carisma`, `vida`, `armadura`, `velocidade`, `usuario_id`, `campanha_id`) VALUES
+(1, 'Personagem teste', 'Barbaro', 'Fanático', 'Ele é um guerreiro forasteiro preso numa terra misteriosa.', 10, 20, 15, 16, 10, 12, 13, 88, 16, '9 m', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +89,14 @@ CREATE TABLE `sessao` (
   `resumo` varchar(255) DEFAULT NULL,
   `campanha_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `sessao`
+--
+
+INSERT INTO `sessao` (`id`, `nome`, `data_sessao`, `resumo`, `campanha_id`) VALUES
+(1, 'Sessao 0', '2026-05-16', 'Esta foi a primeira sessão, comecou a aventura.', 1),
+(2, 'Sessao 1', '2026-05-23', 'Os herois enfrentaram goblins e ganharam a batalha.', 1);
 
 -- --------------------------------------------------------
 
@@ -137,19 +159,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `campanha`
 --
 ALTER TABLE `campanha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `personagem`
 --
 ALTER TABLE `personagem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`

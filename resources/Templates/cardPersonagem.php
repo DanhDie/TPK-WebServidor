@@ -26,7 +26,7 @@ $cardData = array(
             ?>
             <p><?= strlen($texto) > 50 ? substr($texto, 0, 50) . '...' : $texto ?></p>
 
-            <a href="<?= BASE_URL ?>/ficha?idP=<?= $personagem['idPersonagem'] ?>"
+            <a href="<?= BASE_URL ?>/ficha?idP=<?= $personagem['id'] ?>"
                class="is-size-7">
                 Abrir ficha
             </a>

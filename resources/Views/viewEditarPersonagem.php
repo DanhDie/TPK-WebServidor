@@ -74,17 +74,18 @@
                 <div class="columns">
 
                     <div class="column">
-
                         <label class="label">Classe</label>
-
-                        <input
-                            class="input"
-                            name="classe"
-                            value="<?= $personagemSelecionado['classe'] ?>"
-                        >
-
+                        <div class="select is-fullwidth">
+                            <select name="classe">
+                                <?php foreach($classesdnd as $classe): ?>
+                                    <option value="<?= $classe['index'] ?>"
+                                        <?= $personagemSelecionado['classe'] === $classe['index'] ? 'selected' : '' ?>>
+                                        <?= $classe['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                         <?= $errors['classe'] ?>
-
                     </div>
 
                     <div class="column">

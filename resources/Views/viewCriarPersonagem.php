@@ -61,19 +61,20 @@
                     </div>
 
                     <div class="columns">
-
                         <div class="column is-6">
                             <div class="content">
                                 <label class="label">Classe:</label>
-
-                                <input
-                                    class="input is-normal"
-                                    type="text"
-                                    name="classe"
-                                    value="<?= $personagemDesc['classe'] ?>"
-                                >
+                                <div class="select is-normal is-fullwidth">
+                                    <select name="classe">
+                                        <?php foreach($classesdnd as $classe): ?>
+                                            <option value="<?= $classe['index'] ?>"
+                                                <?= $personagemDesc['classe'] === $classe['index'] ? 'selected' : '' ?>>
+                                                <?= $classe['name'] ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </div>
-
                             <?= $errors['classe'] ?>
                         </div>
 

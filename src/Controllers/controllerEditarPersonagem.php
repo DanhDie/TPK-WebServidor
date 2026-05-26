@@ -1,12 +1,14 @@
 ﻿<?php
 
 require_once __DIR__ . "/../../bootstrap.php";
+require_once __DIR__ . "/../../resources/Services/dndAPIService.php";
 
 if(empty($_SESSION['logado'])){
     header('Location: ' . BASE_URL . '/login');
     exit();
 }
 
+$classesdnd = requisicao();
 $idP = isset($_GET['idP']) ? $_GET['idP'] : null;
 
 if (!$idP) {

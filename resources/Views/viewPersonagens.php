@@ -1,0 +1,76 @@
+﻿<section class="container">
+
+    <div class="container">
+
+        <div class="is-primary">
+
+            <h1 class="is-size-3 is-italic has-text-weight-bold has-text-primary mt-3 mx-2">
+
+                Bem-vindo <?= $_SESSION['infoUser']['nome'] ?>
+
+            </h1>
+
+            <div class="mb-3 mx-2">
+
+                <nav class="breadcrumb has-bullet-separator">
+
+                    <ul>
+
+                        <li class="is-active is-size-7 has-text-primary">
+
+                            <a href="#">
+                                Personagens
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+        <div class="box">
+
+            <div class="container">
+
+                <div class="columns is-multiline">
+
+                    <?php foreach ($personagens as $personagem): ?>
+
+                        <div class="column is-3">
+
+                            <?php include(__DIR__ . "/../Templates/cardPersonagem.php"); ?>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                    <div class="column is-12">
+
+                        <div class="content has-text-centered">
+
+                            <a
+                                href="<?= BASE_URL ?>/criarPersonagem"
+                                class="button has-text-primary"
+                            >
+
+                                Criar Personagem
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

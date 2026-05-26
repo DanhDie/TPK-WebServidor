@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
-echo $_SERVER["REQUEST_URI"];
+//echo $_SERVER["REQUEST_URI"];
 //Localmente pelo XAMPP: localhost/TPK-WebServidor/public/ 
 $base = "/TPK-WebServidor/public";
 

@@ -1,6 +1,8 @@
 {
     "name": "gabsferi/tpk-web-servidor",
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^7.10"
+    },
     "autoload": {
         "classmap": ["./"],
         "files": ["bootstrap.php"]

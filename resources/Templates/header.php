@@ -1,5 +1,7 @@
 <?php
 
+Autenticacao::verificarSessao();
+
 if(empty($_SESSION['logado'])){
 
     header('Location: ' . BASE_URL . '/login');
